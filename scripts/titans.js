@@ -1,397 +1,185 @@
-/* Titans page interactive logic */
+function clamp(v,min,max){ return Math.min(max, Math.max(min, v)); }
+function byId(id){ return document.getElementById(id); }
+function escapeHTML(s){ return (s||'').toString().replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 
-(function () {
-  if (!window.TitansAtlas) return;
+document.addEventListener('DOMContentLoaded', async () => {
+  const grid = byId('titan-grid');
+  const tooltip = byId('tooltip');
+  const modal = byId('modal');
+  const modalClose = modal.querySelector('.modal__close');
 
-  const { fetchJSON, trapFocus, prefersReducedMotion } = window.TitansAtlas;
-  const SPOILER_RANK = { none: 0, low: 1, medium: 2, high: 3 };
+  const inputQ = byId('q');
+  const selCategory = byId('category');
+  const selType = byId('type');
+  const heightMin = byId('heightMin');
+  const heightMax = byId('heightMax');
+  const spoilers = byId('spoilers');
+  const empty = byId('empty');
 
-  const grid = document.getElementById("titan-grid");
-  const resultCount = document.querySelector("[data-result-count]");
-  const filtersForm = document.getElementById("titan-filters");
-  const noResultsMessage = document.getElementById("no-results");
-  const tooltip = document.getElementById("titan-tooltip");
-  const modal = document.getElementById("titan-modal");
-  const modalSurface = modal ? modal.querySelector(".modal__surface") : null;
-  const modalImage = document.getElementById("titan-modal-image");
-  const modalTitle = document.getElementById("titan-modal-title");
-  const modalSummary = document.getElementById("titan-modal-summary");
-  const modalType = document.getElementById("titan-modal-type");
-  const modalHeight = document.getElementById("titan-modal-height");
-  const modalShifters = document.getElementById("titan-modal-shifters");
-  const modalAffiliations = document.getElementById("titan-modal-affiliations");
-  const modalFirst = document.getElementById("titan-modal-first");
-  const modalAbilities = document.getElementById("titan-modal-abilities");
-  const modalWeaknesses = document.getElementById("titan-modal-weaknesses");
-  const modalFact = document.getElementById("titan-modal-fact");
-  const modalCategory = document.getElementById("titan-modal-category");
-  const modalSpoiler = document.getElementById("titan-modal-spoiler");
-  const modalWeaknessSummary = document.getElementById("titan-modal-weakness-summary");
+  const data = await window.TITANS_FALLBACK_DATA().then(async d => {
+    // try to load full JSON if fallback returned a subset
+    if (d.length < 9) {
+      try {
+        const r = await fetch('data/titans.json', { cache:'no-store' });
+        if (r.ok) return await r.json();
+      } catch {}
+    }
+    return d;
+  });
 
-  if (!grid || !filtersForm || !tooltip || !modal) return;
+  const indexBySlug = new Map(data.map(t => [t.slug, t]));
 
-  const tooltipId = tooltip.getAttribute("id");
-  const section = grid.closest("section[aria-live]");
-  let titans = [];
-  let filtered = [];
-  let tooltipVisible = false;
-  let tooltipFollowCursor = false;
-  let activeCard = null;
-  let pointerType = "mouse";
-  let releaseModalTrap = null;
-  let touchPreviewCard = null;
-
-  tooltip.setAttribute("aria-live", "polite");
-
-  function debounce(fn, delay = 200) {
-    let timer;
-    return function (...args) {
-      clearTimeout(timer);
-      timer = setTimeout(() => fn.apply(this, args), delay);
-    };
+  function render(list){
+    grid.innerHTML = list.map(t => `
+      <button class="card titan-card" data-slug="${t.slug}" id="${t.slug}" aria-describedby="tooltip">
+        <img src="${escapeHTML(t.image)}" alt="${escapeHTML(t.name)} silhouette" loading="lazy">
+        <h3>${escapeHTML(t.name)}</h3>
+        <p class="muted">${escapeHTML(t.summary)}</p>
+      </button>
+    `).join('');
+    empty.hidden = list.length !== 0;
   }
 
-  function titanMatchesFilters(titan, filters) {
-    const query = filters.query.trim().toLowerCase();
-    const typeMatch = !filters.type || titan.type === filters.type;
-    const categoryMatch = !filters.category || titan.category === filters.category;
-    const searchHaystack = [
-      titan.name,
-      titan.type,
-      titan.summary,
-      titan.category,
-      titan.abilities.join(" "),
-      titan.shifters.join(" "),
-      titan.affiliations.join(" "),
-      titan.funFact || ""
-    ]
-      .join(" ")
-      .toLowerCase();
-    const queryMatch = !query || searchHaystack.includes(query);
+  function matches(t){
+    const q = (inputQ.value||'').trim().toLowerCase();
+    const cat = selCategory.value;
+    const ty = selType.value;
+    const min = Number(heightMin.value||'-Infinity');
+    const max = Number(heightMax.value||'Infinity');
+    const sp = spoilers.value;
 
-    const shifterKnown = hasKnownShifter(titan.shifters);
-    const shifterMatch =
-      !filters.shifterKnown ||
-      (filters.shifterKnown === "yes" && shifterKnown) ||
-      (filters.shifterKnown === "no" && !shifterKnown);
+    if (cat && t.category !== cat) return false;
+    if (ty && t.type !== ty) return false;
+    if (!Number.isNaN(min) && t.heightMeters < min) return false;
+    if (!Number.isNaN(max) && t.heightMeters > max) return false;
 
-    const minHeight = Number(filters.minHeight || 0);
-    const maxHeight = Number(filters.maxHeight || Number.POSITIVE_INFINITY);
-    const height = Number(titan.heightMeters || 0);
-    const heightMatch = height >= minHeight && height <= maxHeight;
+    const spRank = {none:0, low:1, medium:2};
+    const tRank = spRank[(t.spoilerLevel||'none')] ?? 0;
+    if (tRank > spRank[sp]) return false;
 
-    const titanSpoiler = String(titan.spoilerLevel || "medium").toLowerCase();
-    const spoilerRank = SPOILER_RANK[titanSpoiler] ?? SPOILER_RANK.medium;
-    const spoilerThreshold = SPOILER_RANK[filters.spoiler] ?? SPOILER_RANK.medium;
-    const spoilerMatch = spoilerRank <= spoilerThreshold;
-
-    return typeMatch && queryMatch && shifterMatch && heightMatch && categoryMatch && spoilerMatch;
+    if (!q) return true;
+    const blob = [
+      t.name, t.type, t.category, (t.shifters||[]).join(' '),
+      (t.abilities||[]).join(' '), t.summary
+    ].join(' ').toLowerCase();
+    return blob.includes(q);
   }
 
-  function renderGrid(list) {
-    grid.innerHTML = "";
-    noResultsMessage.hidden = list.length > 0;
-    resultCount.textContent = list.length
-      ? `Showing ${list.length} titan${list.length === 1 ? "" : "s"}`
-      : "No titans available";
-
-    list.forEach((titan) => {
-      const card = document.createElement("button");
-      card.type = "button";
-      card.className = "titan-card";
-      card.dataset.slug = titan.slug;
-      card.setAttribute("aria-describedby", tooltipId);
-      const spoilerLabel = formatSpoilerLabel(titan.spoilerLevel);
-      const heightDisplay = titan.heightMeters != null ? `${titan.heightMeters}m` : "—";
-      card.innerHTML = `
-        <img src="${titan.image}" alt="${titan.name} silhouette" loading="lazy" />
-        <div class="titan-card__body">
-          <div class="titan-card__meta">
-            <span class="chip chip-subtle">${titan.category || "Unclassified"}</span>
-            <span class="chip chip-outline" data-spoiler="${(titan.spoilerLevel || "medium").toLowerCase()}">${spoilerLabel}</span>
-          </div>
-          <h3>${titan.name}</h3>
-          <p class="titan-card__summary">${titan.summary}</p>
-          <p class="titan-card__details"><small><strong>Type:</strong> ${titan.type} • <strong>Height:</strong> ${heightDisplay}</small></p>
-        </div>
-      `;
-
-      const wrapper = document.createElement("div");
-      wrapper.setAttribute("role", "listitem");
-      wrapper.appendChild(card);
-      grid.appendChild(wrapper);
-
-      card.addEventListener("pointerenter", (event) => {
-        pointerType = event.pointerType || "mouse";
-        tooltipFollowCursor = pointerType === "mouse" || pointerType === "pen";
-        showTooltip(card, event.clientX, event.clientY);
-      });
-      card.addEventListener("pointerleave", hideTooltip);
-
-      card.addEventListener("pointermove", (event) => {
-        if (!tooltipVisible || !tooltipFollowCursor) return;
-        positionTooltip(event.clientX, event.clientY);
-      });
-
-      card.addEventListener("focus", (event) => {
-        pointerType = "keyboard";
-        tooltipFollowCursor = false;
-        const rect = card.getBoundingClientRect();
-        const x = rect.left + rect.width / 2;
-        const y = rect.top + rect.height / 2;
-        showTooltip(card, x, y);
-      });
-
-      card.addEventListener("blur", (event) => {
-        if (event.relatedTarget && event.currentTarget.contains(event.relatedTarget)) return;
-        hideTooltip();
-      });
-
-      card.addEventListener("pointerdown", (event) => {
-        if ((event.pointerType || "").toLowerCase() !== "touch") return;
-        if (touchPreviewCard !== card) {
-          event.preventDefault();
-          touchPreviewCard = card;
-          tooltipFollowCursor = false;
-          showTooltip(card, event.clientX, event.clientY);
-        } else {
-          touchPreviewCard = null;
-        }
-      });
-
-      card.addEventListener("click", (event) => {
-        event.preventDefault();
-        const slug = card.dataset.slug;
-        const titanData = titans.find((item) => item.slug === slug);
-        if (titanData) {
-          openModal(titanData);
-        }
-      });
-
-      card.addEventListener("keydown", (event) => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          const slug = card.dataset.slug;
-          const titanData = titans.find((item) => item.slug === slug);
-          if (titanData) {
-            openModal(titanData);
-          }
-        }
-      });
-    });
-
-    section?.setAttribute("aria-busy", "false");
+  function applyFilters(){
+    render(data.filter(matches));
   }
 
-  function showTooltip(card, clientX, clientY) {
-    const slug = card.dataset.slug;
-    const titan = titans.find((item) => item.slug === slug);
-    if (!titan) return;
-    activeCard = card;
-    const heightDisplay = titan.heightMeters != null ? `${titan.heightMeters}m` : "—";
-    const spoilerLabel = formatSpoilerLabel(titan.spoilerLevel);
-    const detailLine = [titan.category, titan.type, heightDisplay, titan.abilities[0] || null, spoilerLabel]
-      .filter(Boolean)
-      .join(" • ");
+  // Initial render
+  applyFilters();
+
+  // Debounce
+  let to=null; const deb = fn => { clearTimeout(to); to=setTimeout(fn, 120); };
+  [inputQ, selCategory, selType, heightMin, heightMax, spoilers].forEach(el => {
+    el.addEventListener('input', () => deb(applyFilters()));
+    el.addEventListener('change', () => deb(applyFilters()));
+  });
+
+  // Tooltip follow
+  let tipVisible = false;
+  function showTip(target, t){
     tooltip.innerHTML = `
-      <h3>${titan.name}</h3>
-      <p>${titan.summary}</p>
-      <p><small>${detailLine}</small></p>
+      <strong>${escapeHTML(t.name)}</strong><br>
+      Height: ${t.heightMeters} m · Type: ${escapeHTML(t.type)}<br>
+      ${escapeHTML(t.summary)}
     `;
     tooltip.hidden = false;
-    tooltipVisible = true;
-    requestAnimationFrame(() => {
-      positionTooltip(clientX, clientY);
-    });
+    tipVisible = true;
   }
+  function hideTip(){ tooltip.hidden = true; tipVisible = false; }
 
-  function hideTooltip() {
-    tooltip.hidden = true;
-    tooltipVisible = false;
-    activeCard = null;
-  }
+  // Reposition on mousemove
+  document.addEventListener('mousemove', (e) => {
+    if (!tipVisible) return;
+    const pad = 16;
+    const tw = tooltip.offsetWidth || 300;
+    const th = tooltip.offsetHeight || 120;
+    let x = e.clientX + 16;
+    let y = e.clientY + 16;
+    x = clamp(x, pad, window.innerWidth - tw - pad);
+    y = clamp(y, pad, window.innerHeight - th - pad);
+    tooltip.style.left = x + 'px';
+    tooltip.style.top  = y + 'px';
+    tooltip.style.transform = 'none';
+  });
 
-  function positionTooltip(clientX, clientY) {
-    if (!tooltipVisible) return;
-    const padding = 16;
-    const tooltipRect = tooltip.getBoundingClientRect();
-    let left = clientX + 16;
-    let top = clientY + 16;
+  // Card interactions
+  grid.addEventListener('mouseover', (e) => {
+    const card = e.target.closest('.titan-card');
+    if (!card) return;
+    const t = indexBySlug.get(card.dataset.slug);
+    if (t) showTip(card, t);
+  });
+  grid.addEventListener('mouseout', (e) => {
+    if (!e.relatedTarget || !e.currentTarget.contains(e.relatedTarget)) hideTip();
+  });
+  grid.addEventListener('focusin', (e) => {
+    const card = e.target.closest('.titan-card');
+    if (!card) return;
+    const t = indexBySlug.get(card.dataset.slug);
+    if (t) showTip(card, t);
+  });
+  grid.addEventListener('focusout', () => hideTip());
 
-    if (left + tooltipRect.width + padding > window.innerWidth) {
-      left = Math.max(padding, clientX - tooltipRect.width - 16);
-    }
-    if (top + tooltipRect.height + padding > window.innerHeight) {
-      top = Math.max(padding, window.innerHeight - tooltipRect.height - padding);
-    }
-
-    tooltip.style.left = `${left}px`;
-    tooltip.style.top = `${top}px`;
-  }
-
-  function openModal(titan) {
-    hideTooltip();
-    touchPreviewCard = null;
-    modalImage.src = titan.image;
-    modalImage.alt = `${titan.name} silhouette`;
-    modalTitle.textContent = titan.name;
-    modalSummary.textContent = titan.summary;
-    modalCategory.textContent = titan.category || "Unclassified";
-    const spoilerLevel = String(titan.spoilerLevel || "medium").toLowerCase();
-    modalSpoiler.textContent = formatSpoilerLabel(spoilerLevel);
-    modalSpoiler.dataset.level = spoilerLevel;
-    modalType.textContent = titan.type;
-    modalHeight.textContent = titan.heightMeters != null ? `${titan.heightMeters} meters` : "—";
-    modalShifters.textContent = titan.shifters.join(", ");
-    modalAffiliations.textContent = titan.affiliations.join(", ");
-    modalFirst.textContent = titan.firstAppearance;
-    populateList(modalAbilities, titan.abilities);
-    populateList(modalWeaknesses, titan.weaknesses);
-    const weaknessSummary = titan.weaknesses && titan.weaknesses.length ? titan.weaknesses.join(", ") : "—";
-    modalWeaknessSummary.textContent = weaknessSummary;
-    modalFact.textContent = titan.funFact;
-
+  // Modal
+  function openModal(t){
+    byId('modalTitle').textContent = t.name;
+    const img = byId('modalImg');
+    img.src = t.image; img.alt = `${t.name} silhouette`;
+    byId('modalType').textContent = t.type || '—';
+    byId('modalCategory').textContent = t.category || '—';
+    byId('modalHeight').textContent = t.heightMeters ?? '—';
+    byId('modalShifters').textContent = (t.shifters||[]).join(', ') || '—';
+    byId('modalAbilities').textContent = (t.abilities||[]).join(', ') || '—';
+    byId('modalWeaknesses').textContent = (t.weaknesses||[]).join(', ') || '—';
+    byId('modalFirst').textContent = t.firstAppearance || '—';
+    byId('modalAff').textContent = (t.affiliations||[]).join(', ') || '—';
+    byId('modalFun').textContent = t.funFact || '—';
     modal.hidden = false;
-    modal.setAttribute("data-open", "true");
-    releaseModalTrap = trapFocus(modalSurface || modal);
-    document.body.style.overflow = "hidden";
+    trapFocus(modal);
   }
+  function closeModal(){ modal.hidden = true; releaseFocus(); hideTip(); }
 
-  function closeModal() {
-    if (modal.hidden) return;
-    modal.hidden = true;
-    modal.removeAttribute("data-open");
-    if (releaseModalTrap) {
-      releaseModalTrap();
-      releaseModalTrap = null;
+  grid.addEventListener('click', (e) => {
+    const card = e.target.closest('.titan-card');
+    if (!card) return;
+    const t = indexBySlug.get(card.dataset.slug);
+    if (t) openModal(t);
+  });
+  grid.addEventListener('keydown', (e) => {
+    const card = e.target.closest('.titan-card');
+    if (!card) return;
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      const t = indexBySlug.get(card.dataset.slug);
+      if (t) openModal(t);
     }
-    document.body.style.overflow = "";
-  }
+  });
 
-  function populateList(listElement, items) {
-    listElement.innerHTML = "";
-    if (!items || items.length === 0) {
-      const li = document.createElement("li");
-      li.textContent = "—";
-      listElement.appendChild(li);
-      return;
-    }
-    items.forEach((item) => {
-      const li = document.createElement("li");
-      li.textContent = item;
-      listElement.appendChild(li);
-    });
-  }
+  modalClose.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !modal.hidden) closeModal(); });
+});
 
-  function hasKnownShifter(shifters = []) {
-    return shifters.some((entry = "") => {
-      const value = entry.trim().toLowerCase();
-      if (!value) return false;
-      if (value.startsWith("[")) return false;
-      if (value.startsWith("—") || value.startsWith("-")) return false;
-      if (value === "n/a") return false;
-      return true;
-    });
-  }
-
-  function formatSpoilerLabel(level = "medium") {
-    const normalized = String(level).toLowerCase();
-    switch (normalized) {
-      case "none":
-        return "Spoiler safe";
-      case "low":
-        return "Low spoilers";
-      case "medium":
-      default:
-        return "Medium spoilers";
-    }
-  }
-
-  function parseFilters() {
-    const formData = new FormData(filtersForm);
-    return {
-      query: formData.get("query") || "",
-      type: formData.get("type") || "",
-      shifterKnown: formData.get("shifterKnown") || "",
-      category: formData.get("category") || "",
-      spoiler: (formData.get("spoiler") || "medium").toLowerCase(),
-      minHeight: formData.get("minHeight") || "0",
-      maxHeight: formData.get("maxHeight") || "150"
-    };
-  }
-
-  function updateFilters() {
-    filtered = titans.filter((titan) => titanMatchesFilters(titan, parseFilters()));
-    renderGrid(filtered);
-  }
-
-  const debouncedUpdate = debounce(updateFilters, 180);
-
-  function initFilters() {
-    filtersForm.addEventListener("input", (event) => {
-      if (event.target.id === "search-input") {
-        debouncedUpdate();
-      } else {
-        updateFilters();
-      }
-    });
-    filtersForm.addEventListener("change", updateFilters);
-    filtersForm.addEventListener("reset", () => {
-      requestAnimationFrame(updateFilters);
-    });
-  }
-
-  function initModalListeners() {
-    modal.querySelectorAll("[data-close-modal]").forEach((button) => {
-      button.addEventListener("click", closeModal);
-    });
-    modal.addEventListener("click", (event) => {
-      if (event.target === modal || event.target.classList.contains("modal__backdrop")) {
-        closeModal();
-      }
-    });
-    document.addEventListener("titans:escape", closeModal);
-  }
-
-  function initOutsideTouchHandler() {
-    document.addEventListener("pointerdown", (event) => {
-      if ((event.pointerType || "").toLowerCase() !== "touch") return;
-      if (!grid.contains(event.target)) {
-        hideTooltip();
-        touchPreviewCard = null;
-      }
-    });
-  }
-
-  function loadTitans() {
-    section?.setAttribute("aria-busy", "true");
-    fetchJSON("data/titans.json")
-      .then((data) => {
-        titans = data;
-        filtered = [...titans];
-        updateFilters();
-      })
-      .catch((error) => {
-        console.error(error);
-        resultCount.textContent = "Failed to load titans.";
-        noResultsMessage.hidden = false;
-        noResultsMessage.textContent = "We couldn\'t retrieve the titan data right now. Please refresh to try again.";
-      });
-  }
-
-  function init() {
-    initFilters();
-    initModalListeners();
-    initOutsideTouchHandler();
-    loadTitans();
-    if (prefersReducedMotion()) {
-      tooltip.style.transition = "none";
-    }
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init, { once: true });
-  } else {
-    init();
-  }
-})();
+// Minimal focus trap
+let lastFocused=null;
+function trapFocus(scope){
+  lastFocused = document.activeElement;
+  const focusables = scope.querySelectorAll('a,button,input,select,textarea,[tabindex]:not([tabindex="-1"])');
+  const first = focusables[0], last = focusables[focusables.length-1];
+  first?.focus();
+  scope.addEventListener('keydown', scope._trapHandler = (e) => {
+    if (e.key !== 'Tab') return;
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+}
+function releaseFocus(){
+  const scope = document.getElementById('modal');
+  scope.removeEventListener('keydown', scope._trapHandler);
+  lastFocused?.focus();
+}

@@ -1,171 +1,44 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="system">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="description"
-      content="Learn about Titans Atlas, an accessible and lightweight fan-made resource for the Nine Titans."
-    />
-    <meta property="og:title" content="About – Titans Atlas" />
-    <meta property="og:description" content="Details about the Titans Atlas project, disclaimer, and credits." />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://titans-atlas.example/about.html" />
-    <meta property="og:image" content="https://titans-atlas.example/assets/img/founding.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:wght@700&family=Inter:wght@400;600&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="css/main.css" />
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <title>About – Titans Atlas</title>
-  </head>
-  <body>
-    <a class="skip-link" href="#main">Skip to content</a>
-    <header class="site-header" data-theme-sync>
-      <div class="container header-inner">
-        <a class="logo" href="index.html">Titans Atlas</a>
-        <nav class="primary-nav" aria-label="Primary">
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="titans.html">Titans</a></li>
-            <li><a href="about.html" data-current="true">About</a></li>
-          </ul>
-        </nav>
-        <div class="header-actions">
-          <button
-            id="theme-toggle"
-            class="button button-secondary"
-            type="button"
-            aria-pressed="false"
-            title="Toggle dim mode"
-          >
-            <span class="button-label">Toggle Dim</span>
-          </button>
-          <button
-            id="help-toggle"
-            class="button button-text"
-            type="button"
-            aria-haspopup="dialog"
-            aria-expanded="false"
-          >
-            ?
-          </button>
-        </div>
-      </div>
-    </header>
-    <main id="main" class="page-main">
-      <div class="container stack-lg">
-        <header class="page-header">
-          <h1>About Titans Atlas</h1>
-          <p class="lede">
-            Titans Atlas is a non-commercial fan project that highlights the lore of the Nine Titans through
-            accessible, responsive web design.
-          </p>
-        </header>
-        <section aria-labelledby="project-overview">
-          <h2 id="project-overview">Project overview</h2>
-          <p>
-            Built with semantic HTML, modular CSS, and vanilla JavaScript, Titans Atlas keeps dependencies light so
-            that it can deploy smoothly on GitHub Pages or Netlify. Content is sourced from a concise JSON dataset,
-            which powers interactive tooltips and modals on the Titans page.
-          </p>
-        </section>
-        <section aria-labelledby="project-build">
-          <h2 id="project-build">How it&rsquo;s built</h2>
-          <ul class="checklist">
-            <li>Vanilla HTML, CSS custom properties, and modern layout primitives (flexbox and grid)</li>
-            <li>Progressive enhancement techniques for interactivity with <code>fetch</code> and browser APIs</li>
-            <li>Dark/dim mode toggle that respects system preferences and persists via <code>localStorage</code></li>
-            <li>Keyboard accessibility features including focus outlines, modal focus trapping, and shortcut help</li>
-          </ul>
-        </section>
-        <section aria-labelledby="accessibility-notes">
-          <h2 id="accessibility-notes">Accessibility notes</h2>
-          <p>
-            Navigation, buttons, filters, and Titan cards are keyboard reachable and provide visible focus states. The
-            tooltip uses ARIA semantics and live regions for assistive technology. Reduced-motion preferences disable
-            non-essential transitions, and color contrast adheres to WCAG AA targets.
-          </p>
-        </section>
-        <section aria-labelledby="disclaimer">
-          <h2 id="disclaimer">Disclaimer</h2>
-          <p>
-            This is a non-commercial fan site. <em>Attack on Titan</em> and related names, stories, and imagery belong
-            to their respective owners. Titans Atlas uses only original, non-copyright silhouettes/abstract art and
-            factual summaries for educational and fan purposes.
-          </p>
-        </section>
-        <section aria-labelledby="credits">
-          <h2 id="credits">Credits &amp; links</h2>
-          <p>Created by Your Name. Feel free to connect or reach out:</p>
-          <ul class="link-list">
-            <li><a href="https://www.linkedin.com/in/your-handle" target="_blank" rel="noreferrer">LinkedIn</a></li>
-            <li><a href="https://github.com/your-handle" target="_blank" rel="noreferrer">GitHub</a></li>
-            <li><a href="mailto:your-email@example.com">Email</a></li>
-          </ul>
-          <p class="inline-links">
-            <a href="index.html">Return to Home</a>
-            <span aria-hidden="true">•</span>
-            <a href="titans.html">Explore the Titans</a>
-          </p>
-        </section>
-      </div>
-    </main>
-    <footer class="site-footer">
-      <div class="container footer-inner">
-        <p>&copy; <span data-current-year></span> Titans Atlas. Built for fans by fans.</p>
-        <ul class="social-links" aria-label="Social links">
-          <li>
-            <a href="https://www.linkedin.com/in/your-handle" target="_blank" rel="noreferrer">
-              <span class="sr-only">LinkedIn</span>
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path
-                  d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zm.02 6.5H2V21h3V10zm5 0H7v11h3v-5.4c0-1.42.5-2.4 1.75-2.4 1.28 0 1.25 1.24 1.25 2.48V21h3v-5.97c0-3.03-1.1-4.53-3.6-4.53-1.64 0-2.46.9-2.82 1.53H10V10z"
-                />
-              </svg>
-            </a>
-          </li>
-          <li>
-            <a href="https://github.com/your-handle" target="_blank" rel="noreferrer">
-              <span class="sr-only">GitHub</span>
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path
-                  d="M12 .5a12 12 0 00-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.5-4-1.5-.6-1.4-1.4-1.7-1.4-1.7-1.1-.8.1-.8.1-.8 1.2.1 1.8 1.3 1.8 1.3 1 .1.2 2.1 3.4 2.1 0-.8.3-1.5.6-1.8-2.6-.3-5.3-1.3-5.3-5.9 0-1.3.5-2.4 1.3-3.2-.1-.3-.6-1.6.1-3.3 0 0 1-.3 3.3 1.2a11.3 11.3 0 016 0c2.2-1.5 3.2-1.2 3.2-1.2.7 1.7.2 3 .1 3.3.8.8 1.3 1.9 1.3 3.2 0 4.6-2.7 5.6-5.3 5.9.4.3.7.9.7 1.9v2.8c0 .3.2.7.8.6A12 12 0 0012 .5z"
-                />
-              </svg>
-            </a>
-          </li>
-          <li>
-            <a href="mailto:your-email@example.com">
-              <span class="sr-only">Email</span>
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path
-                  d="M3 5h18a1 1 0 011 1v12a1 1 0 01-1 1H3a1 1 0 01-1-1V6a1 1 0 011-1zm17 3.24l-8 5-8-5V7l8 5 8-5v1.24z"
-                />
-              </svg>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </footer>
-    <div id="keyboard-help" class="keyboard-help" role="dialog" aria-modal="false" aria-labelledby="keyboard-help-title" hidden>
-      <div class="keyboard-help__surface" role="document">
-        <button class="keyboard-help__close button button-text" type="button" data-close-help>
-          Close
-        </button>
-        <h2 id="keyboard-help-title">Keyboard shortcuts</h2>
-        <ul>
-          <li><kbd>Tab</kbd>: Navigate interactive elements</li>
-          <li><kbd>Shift</kbd> + <kbd>Tab</kbd>: Reverse navigation</li>
-          <li><kbd>Enter</kbd>/<kbd>Space</kbd>: Activate focused cards or buttons</li>
-          <li><kbd>?</kbd>: Toggle this help panel</li>
-          <li><kbd>Esc</kbd>: Close dialogs and modals</li>
-        </ul>
-      </div>
-    </div>
-    <script src="scripts/main.js" defer></script>
-  </body>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Titans Atlas — About</title>
+  <meta name="description" content="Project info, accessibility notes, and disclaimer.">
+  <link rel="icon" href="assets/favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=DM+Serif+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<header class="site-header container">
+  <a class="brand" href="index.html">Titans Atlas</a>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="titans.html">Titans</a>
+    <a href="about.html" aria-current="page">About</a>
+    <button id="themeToggle" class="btn">Theme</button>
+  </nav>
+</header>
+
+<main class="container">
+  <h1>About this project</h1>
+  <p>Built with vanilla HTML/CSS/JS. Hover/focus on cards to reveal info; click/Enter for details.</p>
+  <h2>Disclaimer</h2>
+  <p>This is a non-commercial fan site. <em>Attack on Titan</em> and related names/imagery belong to their respective owners. All icons here are original abstract silhouettes (no copyrighted art).</p>
+
+  <h2>Credits</h2>
+  <ul>
+    <li>Author: Your Name</li>
+    <li>LinkedIn: <a href="https://www.linkedin.com/in/your-handle" target="_blank" rel="noopener">your-handle</a></li>
+    <li>GitHub: <a href="https://github.com/your-handle" target="_blank" rel="noopener">your-handle</a></li>
+    <li>Email: <a href="mailto:you@example.com">you@example.com</a></li>
+  </ul>
+</main>
+
+<footer class="site-footer container">
+  <a href="index.html">Home</a> • <a href="titans.html">Titans</a>
+</footer>
+
+<script src="scripts/main.js" defer></script>
+</body>
 </html>
