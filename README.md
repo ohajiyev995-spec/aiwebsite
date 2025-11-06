@@ -6,6 +6,7 @@ Titans Atlas is a lightweight, multi-page fan site for *Attack on Titan*. It sho
 
 - **Vanilla stack**: Semantic HTML, modular CSS, and plain JavaScript with no build step.
 - **Interactive Titans roster**: Client-side search, filters, hover tooltips, and accessible modals populated from JSON.
+- **Expanded dataset**: Includes categories, spoiler comfort levels, and notable variants beyond the Nine Titans.
 - **Original artwork**: Custom SVG silhouettes rendered with `currentColor` to blend into any theme.
 - **Adaptive theming**: Dim/light toggle that honours `prefers-color-scheme` and persists via `localStorage`.
 - **Keyboard-first UX**: Skip links, focus styles, focus trapping, and a `?` shortcut that opens an in-page help sheet.
@@ -21,14 +22,14 @@ Titans Atlas is a lightweight, multi-page fan site for *Attack on Titan*. It sho
 
 All lore content lives in `data/titans.json`. To add or edit entries:
 
-1. Duplicate an existing object and update the fields (`slug`, `name`, `heightMeters`, `abilities`, etc.).
+1. Duplicate an existing object and update the fields (`slug`, `name`, `heightMeters`, `category`, `spoilerLevel`, `abilities`, etc.).
 2. Place a matching SVG silhouette in `assets/img/` and reference it via the `image` property.
 3. Keep summaries concise and spoiler-light when possible.
 4. Reload `titans.html`; the grid will automatically render the new Titan with full search/filter support.
 
 ## Accessibility & Keyboard Controls
 
-- `Tab` / `Shift + Tab`: Move between navigation, cards, and controls.
+- `Tab` / `Shift + Tab`: Move between navigation, chips, cards, and controls.
 - `Enter` / `Space`: Activate focused buttons or open Titan modals.
 - `Esc`: Close tooltips (when applicable), modals, and the help sheet.
 - `?`: Toggle the keyboard help popover.

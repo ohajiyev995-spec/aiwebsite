@@ -65,7 +65,7 @@
           <h1>Atlas of the Nine Titans</h1>
           <p class="lede">
             Hover or focus on a titan to preview their profile. Use the filters below to narrow by abilities, type,
-            shifter status, and height.
+            shifter status, category, spoiler comfort, and height.
           </p>
         </header>
         <section class="filters" aria-labelledby="filters-heading">
@@ -73,54 +73,82 @@
             <h2 id="filters-heading">Search &amp; filters</h2>
             <button type="reset" class="button button-text" form="titan-filters">Reset</button>
           </div>
-          <form id="titan-filters" class="filters__form" autocomplete="off">
-            <div class="field">
-              <label for="search-input">Search</label>
-              <input
-                id="search-input"
-                type="search"
-                name="query"
-                placeholder="Search name, shifter, or ability"
-                aria-describedby="search-help"
-                inputmode="search"
-              />
-              <p id="search-help" class="field-help">Type to filter dynamically across names, shifters, and abilities.</p>
-            </div>
-            <div class="field">
-              <label for="type-filter">Type</label>
-              <select id="type-filter" name="type">
-                <option value="">All Titan types</option>
-                <option value="Founding">Founding</option>
-                <option value="Attack">Attack</option>
-                <option value="Colossal">Colossal</option>
-                <option value="Armored">Armored</option>
-                <option value="Female">Female</option>
-                <option value="Beast">Beast</option>
-                <option value="Jaw">Jaw</option>
-                <option value="Cart">Cart</option>
-                <option value="War Hammer">War Hammer</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="shifter-filter">Shifter known</label>
-              <select id="shifter-filter" name="shifterKnown">
-                <option value="">Any</option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-              </select>
-            </div>
-            <fieldset class="field field-range">
-              <legend>Height (meters)</legend>
-              <div class="range-group">
-                <label for="min-height">Min</label>
-                <input id="min-height" name="minHeight" type="number" min="0" max="60" value="0" />
+            <form id="titan-filters" class="filters__form" autocomplete="off">
+              <div class="field">
+                <label for="search-input">Search</label>
+                <input
+                  id="search-input"
+                  type="search"
+                  name="query"
+                  placeholder="Search name, shifter, or ability"
+                  aria-describedby="search-help"
+                  inputmode="search"
+                />
+                <p id="search-help" class="field-help">Type to filter dynamically across names, shifters, and abilities.</p>
               </div>
-              <div class="range-group">
-                <label for="max-height">Max</label>
-                <input id="max-height" name="maxHeight" type="number" min="0" max="80" value="80" />
+              <div class="field">
+                <label for="type-filter">Type</label>
+                <select id="type-filter" name="type">
+                  <option value="">All Titan types</option>
+                  <option value="Founding">Founding</option>
+                  <option value="Attack">Attack</option>
+                  <option value="Colossal">Colossal</option>
+                  <option value="Armored">Armored</option>
+                  <option value="Female">Female</option>
+                  <option value="Beast">Beast</option>
+                  <option value="Jaw">Jaw</option>
+                  <option value="Cart">Cart</option>
+                  <option value="War Hammer">War Hammer</option>
+                </select>
               </div>
-            </fieldset>
-          </form>
+              <div class="field">
+                <label for="shifter-filter">Shifter known</label>
+                <select id="shifter-filter" name="shifterKnown">
+                  <option value="">Any</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
+              </div>
+              <fieldset class="field field-chips" id="category-fieldset">
+                <legend>Category</legend>
+                <div class="chip-group">
+                  <input type="radio" name="category" id="category-all" value="" class="chip-input sr-only" checked />
+                  <label class="chip" for="category-all" data-chip>All</label>
+                  <input type="radio" name="category" id="category-nine" value="Nine" class="chip-input sr-only" />
+                  <label class="chip" for="category-nine" data-chip>Nine</label>
+                  <input type="radio" name="category" id="category-variant" value="Variant" class="chip-input sr-only" />
+                  <label class="chip" for="category-variant" data-chip>Variant</label>
+                  <input
+                    type="radio"
+                    name="category"
+                    id="category-notable"
+                    value="Notable Pure/Abnormal"
+                    class="chip-input sr-only"
+                  />
+                  <label class="chip" for="category-notable" data-chip>Notable Pure/Abnormal</label>
+                </div>
+              </fieldset>
+              <div class="field">
+                <label for="spoiler-filter">Spoiler safety</label>
+                <select id="spoiler-filter" name="spoiler">
+                  <option value="medium">Show all (up to medium)</option>
+                  <option value="low">Low spoilers only</option>
+                  <option value="none">No spoilers</option>
+                </select>
+                <p class="field-help">Entries exceeding the selected spoiler level will be hidden.</p>
+              </div>
+              <fieldset class="field field-range">
+                <legend>Height (meters)</legend>
+                <div class="range-group">
+                  <label for="min-height">Min</label>
+                  <input id="min-height" name="minHeight" type="number" min="0" max="120" value="0" />
+                </div>
+                <div class="range-group">
+                  <label for="max-height">Max</label>
+                  <input id="max-height" name="maxHeight" type="number" min="0" max="150" value="150" />
+                </div>
+              </fieldset>
+            </form>
         </section>
         <section aria-live="polite" aria-busy="true">
           <div class="section-header">
@@ -185,64 +213,72 @@
           <li><kbd>Esc</kbd>: Close dialogs and modals</li>
         </ul>
       </div>
-    </div>
-    <div
-      id="titan-modal"
-      class="modal"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="titan-modal-title"
-      hidden
-    >
-      <div class="modal__backdrop" data-close-modal></div>
-      <div class="modal__surface" role="document">
-        <button type="button" class="modal__close button button-text" data-close-modal aria-label="Close modal">
-          Close
-        </button>
-        <div class="modal__header">
-          <img src="" alt="" id="titan-modal-image" class="modal__image" />
-          <div>
-            <h2 id="titan-modal-title"></h2>
-            <p id="titan-modal-summary" class="modal__summary"></p>
+      </div>
+      <div
+        id="titan-modal"
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="titan-modal-title"
+        hidden
+      >
+        <div class="modal__backdrop" data-close-modal></div>
+        <div class="modal__surface" role="document">
+          <button type="button" class="modal__close button button-text" data-close-modal aria-label="Close modal">
+            Close
+          </button>
+          <div class="modal__header">
+            <img src="" alt="" id="titan-modal-image" class="modal__image" />
+            <div>
+              <h2 id="titan-modal-title"></h2>
+              <p id="titan-modal-summary" class="modal__summary"></p>
+              <div class="modal__tags">
+                <span id="titan-modal-category" class="chip chip-subtle" aria-label="Category"></span>
+                <span id="titan-modal-spoiler" class="chip chip-outline" aria-label="Spoiler level"></span>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="modal__body">
-          <dl class="definition-grid">
-            <div>
-              <dt>Type</dt>
-              <dd id="titan-modal-type"></dd>
+          <div class="modal__body">
+            <dl class="definition-grid">
+              <div>
+                <dt>Type</dt>
+                <dd id="titan-modal-type"></dd>
+              </div>
+              <div>
+                <dt>Height</dt>
+                <dd id="titan-modal-height"></dd>
+              </div>
+              <div>
+                <dt>Shifters</dt>
+                <dd id="titan-modal-shifters"></dd>
+              </div>
+              <div>
+                <dt>Affiliations</dt>
+                <dd id="titan-modal-affiliations"></dd>
+              </div>
+              <div>
+                <dt>First appearance</dt>
+                <dd id="titan-modal-first"></dd>
+              </div>
+              <div>
+                <dt>Weakness overview</dt>
+                <dd id="titan-modal-weakness-summary"></dd>
+              </div>
+            </dl>
+            <div class="modal__lists">
+              <section>
+                <h3>Abilities</h3>
+                <ul id="titan-modal-abilities"></ul>
+              </section>
+              <section>
+                <h3>Weaknesses (details)</h3>
+                <ul id="titan-modal-weaknesses"></ul>
+              </section>
             </div>
-            <div>
-              <dt>Height</dt>
-              <dd id="titan-modal-height"></dd>
-            </div>
-            <div>
-              <dt>Shifters</dt>
-              <dd id="titan-modal-shifters"></dd>
-            </div>
-            <div>
-              <dt>Affiliations</dt>
-              <dd id="titan-modal-affiliations"></dd>
-            </div>
-            <div>
-              <dt>First appearance</dt>
-              <dd id="titan-modal-first"></dd>
-            </div>
-          </dl>
-          <div class="modal__lists">
-            <section>
-              <h3>Abilities</h3>
-              <ul id="titan-modal-abilities"></ul>
-            </section>
-            <section>
-              <h3>Weaknesses</h3>
-              <ul id="titan-modal-weaknesses"></ul>
-            </section>
+            <p id="titan-modal-fact" class="modal__fact"></p>
           </div>
-          <p id="titan-modal-fact" class="modal__fact"></p>
         </div>
       </div>
-    </div>
     <div id="titan-tooltip" class="titan-tooltip" role="tooltip" aria-live="polite" hidden></div>
     <script src="scripts/main.js" defer></script>
     <script src="scripts/titans.js" defer></script>

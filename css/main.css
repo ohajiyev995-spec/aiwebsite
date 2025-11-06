@@ -378,6 +378,23 @@ kbd {
   align-content: start;
 }
 
+.titan-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.titan-card__details {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.titan-card__details strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
 .featured-card p,
 .titan-card p {
   color: var(--muted);
@@ -411,6 +428,70 @@ kbd {
 .filters__form {
   display: grid;
   gap: var(--space-md);
+}
+
+.field-chips {
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm);
+  grid-column: 1 / -1;
+}
+
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--surface-border);
+  background: rgba(233, 238, 251, 0.05);
+  color: var(--muted);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: color 160ms ease, background 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+.chip:hover,
+.chip:focus-visible {
+  color: var(--text);
+  border-color: rgba(44, 123, 229, 0.4);
+  background: rgba(44, 123, 229, 0.12);
+  transform: translateY(-1px);
+}
+
+.chip-input:checked + .chip {
+  color: var(--text);
+  border-color: var(--accent);
+  background: rgba(44, 123, 229, 0.2);
+}
+
+.chip-input:focus-visible + .chip {
+  outline: 3px solid var(--warning);
+  outline-offset: 3px;
+}
+
+.chip-subtle {
+  border-color: rgba(233, 238, 251, 0.3);
+  background: rgba(233, 238, 251, 0.08);
+  color: var(--text);
+}
+
+.chip-outline {
+  border-color: rgba(44, 123, 229, 0.5);
+  color: var(--accent);
+  background: transparent;
+}
+
+.titan-card__meta .chip,
+.modal__tags .chip {
+  cursor: default;
+  pointer-events: none;
 }
 
 .field {
@@ -592,6 +673,13 @@ textarea:focus-visible {
   display: grid;
   gap: var(--space-md);
   align-items: center;
+}
+
+.modal__tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
 }
 
 .modal__image {
