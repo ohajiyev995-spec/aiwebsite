@@ -1,0 +1,335 @@
+/* Titans page interactive logic */
+
+(function () {
+  if (!window.TitansAtlas) return;
+
+  const { fetchJSON, trapFocus, prefersReducedMotion } = window.TitansAtlas;
+
+  const grid = document.getElementById("titan-grid");
+  const resultCount = document.querySelector("[data-result-count]");
+  const filtersForm = document.getElementById("titan-filters");
+  const noResultsMessage = document.getElementById("no-results");
+  const tooltip = document.getElementById("titan-tooltip");
+  const modal = document.getElementById("titan-modal");
+  const modalSurface = modal ? modal.querySelector(".modal__surface") : null;
+  const modalImage = document.getElementById("titan-modal-image");
+  const modalTitle = document.getElementById("titan-modal-title");
+  const modalSummary = document.getElementById("titan-modal-summary");
+  const modalType = document.getElementById("titan-modal-type");
+  const modalHeight = document.getElementById("titan-modal-height");
+  const modalShifters = document.getElementById("titan-modal-shifters");
+  const modalAffiliations = document.getElementById("titan-modal-affiliations");
+  const modalFirst = document.getElementById("titan-modal-first");
+  const modalAbilities = document.getElementById("titan-modal-abilities");
+  const modalWeaknesses = document.getElementById("titan-modal-weaknesses");
+  const modalFact = document.getElementById("titan-modal-fact");
+
+  if (!grid || !filtersForm || !tooltip || !modal) return;
+
+  const tooltipId = tooltip.getAttribute("id");
+  const section = grid.closest("section[aria-live]");
+  let titans = [];
+  let filtered = [];
+  let tooltipVisible = false;
+  let tooltipFollowCursor = false;
+  let activeCard = null;
+  let pointerType = "mouse";
+  let releaseModalTrap = null;
+  let touchPreviewCard = null;
+
+  tooltip.setAttribute("aria-live", "polite");
+
+  function debounce(fn, delay = 200) {
+    let timer;
+    return function (...args) {
+      clearTimeout(timer);
+      timer = setTimeout(() => fn.apply(this, args), delay);
+    };
+  }
+
+  function titanMatchesFilters(titan, filters) {
+    const query = filters.query.trim().toLowerCase();
+    const typeMatch = !filters.type || titan.type === filters.type;
+    const searchHaystack = [
+      titan.name,
+      titan.type,
+      titan.summary,
+      titan.abilities.join(" "),
+      titan.shifters.join(" ")
+    ]
+      .join(" ")
+      .toLowerCase();
+    const queryMatch = !query || searchHaystack.includes(query);
+
+    const shifterKnown = titan.shifters.some((entry) => !entry.startsWith("["));
+    const shifterMatch =
+      !filters.shifterKnown ||
+      (filters.shifterKnown === "yes" && shifterKnown) ||
+      (filters.shifterKnown === "no" && !shifterKnown);
+
+    const minHeight = Number(filters.minHeight || 0);
+    const maxHeight = Number(filters.maxHeight || Number.POSITIVE_INFINITY);
+    const height = Number(titan.heightMeters || 0);
+    const heightMatch = height >= minHeight && height <= maxHeight;
+
+    return typeMatch && queryMatch && shifterMatch && heightMatch;
+  }
+
+  function renderGrid(list) {
+    grid.innerHTML = "";
+    noResultsMessage.hidden = list.length > 0;
+    resultCount.textContent = list.length
+      ? `Showing ${list.length} titan${list.length === 1 ? "" : "s"}`
+      : "No titans available";
+
+    list.forEach((titan) => {
+      const card = document.createElement("button");
+      card.type = "button";
+      card.className = "titan-card";
+      card.dataset.slug = titan.slug;
+      card.setAttribute("aria-describedby", tooltipId);
+      card.innerHTML = `
+        <img src="${titan.image}" alt="${titan.name} silhouette" loading="lazy" />
+        <div class="titan-card__body">
+          <h3>${titan.name}</h3>
+          <p>${titan.summary}</p>
+          <p><small><strong>Type:</strong> ${titan.type}</small></p>
+        </div>
+      `;
+
+      const wrapper = document.createElement("div");
+      wrapper.setAttribute("role", "listitem");
+      wrapper.appendChild(card);
+      grid.appendChild(wrapper);
+
+      card.addEventListener("pointerenter", (event) => {
+        pointerType = event.pointerType || "mouse";
+        tooltipFollowCursor = pointerType === "mouse" || pointerType === "pen";
+        showTooltip(card, event.clientX, event.clientY);
+      });
+      card.addEventListener("pointerleave", hideTooltip);
+
+      card.addEventListener("pointermove", (event) => {
+        if (!tooltipVisible || !tooltipFollowCursor) return;
+        positionTooltip(event.clientX, event.clientY);
+      });
+
+      card.addEventListener("focus", (event) => {
+        pointerType = "keyboard";
+        tooltipFollowCursor = false;
+        const rect = card.getBoundingClientRect();
+        const x = rect.left + rect.width / 2;
+        const y = rect.top + rect.height / 2;
+        showTooltip(card, x, y);
+      });
+
+      card.addEventListener("blur", (event) => {
+        if (event.relatedTarget && event.currentTarget.contains(event.relatedTarget)) return;
+        hideTooltip();
+      });
+
+      card.addEventListener("pointerdown", (event) => {
+        if ((event.pointerType || "").toLowerCase() !== "touch") return;
+        if (touchPreviewCard !== card) {
+          event.preventDefault();
+          touchPreviewCard = card;
+          tooltipFollowCursor = false;
+          showTooltip(card, event.clientX, event.clientY);
+        } else {
+          touchPreviewCard = null;
+        }
+      });
+
+      card.addEventListener("click", (event) => {
+        event.preventDefault();
+        const slug = card.dataset.slug;
+        const titanData = titans.find((item) => item.slug === slug);
+        if (titanData) {
+          openModal(titanData);
+        }
+      });
+
+      card.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          const slug = card.dataset.slug;
+          const titanData = titans.find((item) => item.slug === slug);
+          if (titanData) {
+            openModal(titanData);
+          }
+        }
+      });
+    });
+
+    section?.setAttribute("aria-busy", "false");
+  }
+
+  function showTooltip(card, clientX, clientY) {
+    const slug = card.dataset.slug;
+    const titan = titans.find((item) => item.slug === slug);
+    if (!titan) return;
+    activeCard = card;
+    tooltip.innerHTML = `
+      <h3>${titan.name}</h3>
+      <p>${titan.summary}</p>
+      <p><small>${titan.heightMeters}m • ${titan.abilities[0] || "Ability unknown"}</small></p>
+    `;
+    tooltip.hidden = false;
+    tooltipVisible = true;
+    requestAnimationFrame(() => {
+      positionTooltip(clientX, clientY);
+    });
+  }
+
+  function hideTooltip() {
+    tooltip.hidden = true;
+    tooltipVisible = false;
+    activeCard = null;
+  }
+
+  function positionTooltip(clientX, clientY) {
+    if (!tooltipVisible) return;
+    const padding = 16;
+    const tooltipRect = tooltip.getBoundingClientRect();
+    let left = clientX + 16;
+    let top = clientY + 16;
+
+    if (left + tooltipRect.width + padding > window.innerWidth) {
+      left = Math.max(padding, clientX - tooltipRect.width - 16);
+    }
+    if (top + tooltipRect.height + padding > window.innerHeight) {
+      top = Math.max(padding, window.innerHeight - tooltipRect.height - padding);
+    }
+
+    tooltip.style.left = `${left}px`;
+    tooltip.style.top = `${top}px`;
+  }
+
+  function openModal(titan) {
+    hideTooltip();
+    touchPreviewCard = null;
+    modalImage.src = titan.image;
+    modalImage.alt = `${titan.name} silhouette`;
+    modalTitle.textContent = titan.name;
+    modalSummary.textContent = titan.summary;
+    modalType.textContent = titan.type;
+    modalHeight.textContent = `${titan.heightMeters} meters`;
+    modalShifters.textContent = titan.shifters.join(", ");
+    modalAffiliations.textContent = titan.affiliations.join(", ");
+    modalFirst.textContent = titan.firstAppearance;
+    populateList(modalAbilities, titan.abilities);
+    populateList(modalWeaknesses, titan.weaknesses);
+    modalFact.textContent = titan.funFact;
+
+    modal.hidden = false;
+    modal.setAttribute("data-open", "true");
+    releaseModalTrap = trapFocus(modalSurface || modal);
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeModal() {
+    if (modal.hidden) return;
+    modal.hidden = true;
+    modal.removeAttribute("data-open");
+    if (releaseModalTrap) {
+      releaseModalTrap();
+      releaseModalTrap = null;
+    }
+    document.body.style.overflow = "";
+  }
+
+  function populateList(listElement, items) {
+    listElement.innerHTML = "";
+    items.forEach((item) => {
+      const li = document.createElement("li");
+      li.textContent = item;
+      listElement.appendChild(li);
+    });
+  }
+
+  function parseFilters() {
+    const formData = new FormData(filtersForm);
+    return {
+      query: formData.get("query") || "",
+      type: formData.get("type") || "",
+      shifterKnown: formData.get("shifterKnown") || "",
+      minHeight: formData.get("minHeight") || "0",
+      maxHeight: formData.get("maxHeight") || "80"
+    };
+  }
+
+  function updateFilters() {
+    filtered = titans.filter((titan) => titanMatchesFilters(titan, parseFilters()));
+    renderGrid(filtered);
+  }
+
+  const debouncedUpdate = debounce(updateFilters, 180);
+
+  function initFilters() {
+    filtersForm.addEventListener("input", (event) => {
+      if (event.target.id === "search-input") {
+        debouncedUpdate();
+      } else {
+        updateFilters();
+      }
+    });
+    filtersForm.addEventListener("change", updateFilters);
+    filtersForm.addEventListener("reset", () => {
+      requestAnimationFrame(updateFilters);
+    });
+  }
+
+  function initModalListeners() {
+    modal.querySelectorAll("[data-close-modal]").forEach((button) => {
+      button.addEventListener("click", closeModal);
+    });
+    modal.addEventListener("click", (event) => {
+      if (event.target === modal || event.target.classList.contains("modal__backdrop")) {
+        closeModal();
+      }
+    });
+    document.addEventListener("titans:escape", closeModal);
+  }
+
+  function initOutsideTouchHandler() {
+    document.addEventListener("pointerdown", (event) => {
+      if ((event.pointerType || "").toLowerCase() !== "touch") return;
+      if (!grid.contains(event.target)) {
+        hideTooltip();
+        touchPreviewCard = null;
+      }
+    });
+  }
+
+  function loadTitans() {
+    section?.setAttribute("aria-busy", "true");
+    fetchJSON("data/titans.json")
+      .then((data) => {
+        titans = data;
+        filtered = [...titans];
+        updateFilters();
+      })
+      .catch((error) => {
+        console.error(error);
+        resultCount.textContent = "Failed to load titans.";
+        noResultsMessage.hidden = false;
+        noResultsMessage.textContent = "We couldn\'t retrieve the titan data right now. Please refresh to try again.";
+      });
+  }
+
+  function init() {
+    initFilters();
+    initModalListeners();
+    initOutsideTouchHandler();
+    loadTitans();
+    if (prefersReducedMotion()) {
+      tooltip.style.transition = "none";
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init, { once: true });
+  } else {
+    init();
+  }
+})();

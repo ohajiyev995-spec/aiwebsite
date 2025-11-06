@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" aria-hidden="true" role="img">
+  <path
+    d="M16 64c20-24 76-24 96 0-20 24-76 24-96 0z"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="8"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M28 68c14 10 58 10 72 0"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="6"
+    stroke-linecap="round"
+    opacity="0.6"
+  />
+  <path
+    d="M40 48v24m12-28v28m12-30v30m12-30v30m12-28v28"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="6"
+    stroke-linecap="round"
+    opacity="0.8"
+  />
+</svg>

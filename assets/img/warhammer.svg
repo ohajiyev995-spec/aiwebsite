@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" aria-hidden="true" role="img">
+  <rect x="36" y="24" width="56" height="24" rx="8" ry="8" fill="currentColor" opacity="0.6" />
+  <rect x="58" y="48" width="12" height="44" rx="6" fill="currentColor" />
+  <path
+    d="M64 92v20"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="8"
+    stroke-linecap="round"
+  />
+  <path
+    d="M48 112h32"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="6"
+    stroke-linecap="round"
+    opacity="0.6"
+  />
+</svg>

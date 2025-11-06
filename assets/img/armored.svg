@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" aria-hidden="true" role="img">
+  <path
+    d="M64 16 104 40v48L64 112 24 88V40z"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="8"
+    stroke-linejoin="round"
+  />
+  <path d="M64 24 96 44 64 64 32 44z" fill="currentColor" opacity="0.35" />
+  <path d="M64 68 96 48v32l-32 20-32-20V48z" fill="currentColor" opacity="0.55" />
+</svg>
