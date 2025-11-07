@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Titans Compendium | All Nine Titans & Inheritors</title>
+  <meta name="description" content="Explore every Nine Titan and all inheritors with bios, abilities, and history in the Titans Compendium."/>
+  <meta property="og:title" content="Titans Compendium"/>
+  <meta property="og:description" content="Multipage guide to the Nine Titans and every inheritor with search, filters, and accessible modal."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://example.com/"/>
+  <meta property="og:image" content="assets/img/titans/founding.svg"/>
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <script>
+    try {
+      var mode = localStorage.getItem('theme') || 'dark';
+      document.documentElement.dataset.theme = mode;
+    } catch (err) {
+      document.documentElement.dataset.theme = 'dark';
+    }
+  </script>
+</head>
+<body>
+  <header class="site-header container" role="banner">
+    <a class="brand" href="index.html">Titans Compendium</a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="index.html" aria-current="page">Home</a>
+      <a href="titans.html">Titans</a>
+      <a href="about.html">About</a>
+    </nav>
+    <button id="themeToggle" class="btn" type="button">Toggle theme</button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1 class="display">Chronicle the Nine Titans and their inheritors</h1>
+        <p class="tagline">Dive into a spoiler-light compendium covering every Titan shifter, complete with abilities, weaknesses, and history.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="titans.html">Browse Titans</a>
+          <a class="btn" href="about.html">Learn more</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="container">
+      <header>
+        <h2>Featured Titans</h2>
+        <p class="muted">Start with three iconic Titans. Click through for full dossiers and inheritor timelines.</p>
+      </header>
+      <div id="featuredTitans" class="grid" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer container" role="contentinfo">
+    <p class="muted">&copy; <span id="year"></span> Titans Compendium</p>
+    <div class="nav" aria-label="Social links">
+      <a href="https://www.linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a>
+      <a href="https://github.com" target="_blank" rel="noreferrer">GitHub</a>
+      <a href="mailto:info@example.com">Email</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+  <script src="scripts/main.js" defer></script>
+</body>
+</html>

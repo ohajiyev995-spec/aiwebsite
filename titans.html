@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Titans Compendium | Titans Directory</title>
+  <meta name="description" content="Browse the complete directory of all Nine Titans and every inheritor with filters and accessible modal."/>
+  <meta property="og:title" content="Titans Directory"/>
+  <meta property="og:description" content="Search and filter every Nine Titan and their inheritors."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://example.com/titans.html"/>
+  <meta property="og:image" content="assets/img/titans/attack.svg"/>
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <script>
+    try {
+      var mode = localStorage.getItem('theme') || 'dark';
+      document.documentElement.dataset.theme = mode;
+    } catch (err) {
+      document.documentElement.dataset.theme = 'dark';
+    }
+  </script>
+</head>
+<body>
+  <header class="site-header container" role="banner">
+    <a class="brand" href="index.html">Titans Compendium</a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="titans.html" aria-current="page">Titans</a>
+      <a href="about.html">About</a>
+    </nav>
+    <button id="themeToggle" class="btn" type="button">Toggle theme</button>
+  </header>
+
+  <main class="container">
+    <header>
+      <h1 id="gridLabel">Titans</h1>
+      <p class="muted">Filter, search, and explore the full roster of Nine Titans and every known inheritor.</p>
+    </header>
+
+    <form class="controls" role="search" aria-label="Titan filters">
+      <label class="sr-only" for="q">Search</label>
+      <input id="q" class="input" type="search" name="q" placeholder="Search Titans or inheritors" autocomplete="off">
+
+      <label class="sr-only" for="category">Category</label>
+      <select id="category" class="input" name="category">
+        <option value="">All categories</option>
+        <option value="Nine">Nine</option>
+      </select>
+
+      <label class="sr-only" for="type">Type</label>
+      <select id="type" class="input" name="type">
+        <option value="">All types</option>
+        <option value="Founding">Founding</option>
+        <option value="Attack">Attack</option>
+        <option value="Colossal">Colossal</option>
+        <option value="Armored">Armored</option>
+        <option value="Female">Female</option>
+        <option value="Beast">Beast</option>
+        <option value="Jaw">Jaw</option>
+        <option value="Cart">Cart</option>
+        <option value="War Hammer">War Hammer</option>
+      </select>
+
+      <label class="sr-only" for="heightMin">Min height</label>
+      <input id="heightMin" class="input" type="number" name="heightMin" placeholder="Min height" min="0" step="1">
+
+      <label class="sr-only" for="heightMax">Max height</label>
+      <input id="heightMax" class="input" type="number" name="heightMax" placeholder="Max height" min="0" step="1">
+
+      <label class="sr-only" for="spoilers">Spoiler level</label>
+      <select id="spoilers" class="input" name="spoilers">
+        <option value="none">Spoilers: none</option>
+        <option value="low" selected>Spoilers: low</option>
+        <option value="medium">Spoilers: medium</option>
+      </select>
+    </form>
+
+    <section>
+      <div id="titanGrid" class="grid" role="list"></div>
+      <p id="empty" hidden>No results. Try different filters.</p>
+    </section>
+  </main>
+
+  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+    <div class="modal__panel" role="document">
+      <button class="modal__close" type="button" aria-label="Close">&times;</button>
+      <h2 id="modalTitle"></h2>
+      <img id="modalImg" alt="" loading="lazy">
+      <div class="specs">
+        <p><strong>Type:</strong> <span id="modalType"></span></p>
+        <p><strong>Category:</strong> <span id="modalCategory"></span></p>
+        <p><strong>Height:</strong> <span id="modalHeight"></span> m</p>
+        <p><strong>Abilities:</strong> <span id="modalAbilities"></span></p>
+        <p><strong>Weaknesses:</strong> <span id="modalWeaknesses"></span></p>
+        <p><strong>First appearance:</strong> <span id="modalFirst"></span></p>
+        <p><strong>Affiliations:</strong> <span id="modalAff"></span></p>
+        <p><strong>Inheritors:</strong> <span id="modalShifters"></span></p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer container" role="contentinfo">
+    <p class="muted">&copy; <span id="year"></span> Titans Compendium</p>
+    <div class="nav" aria-label="Social links">
+      <a href="https://www.linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a>
+      <a href="https://github.com" target="_blank" rel="noreferrer">GitHub</a>
+      <a href="mailto:info@example.com">Email</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+  <script src="scripts/main.js" defer></script>
+  <script src="scripts/titans.js" defer></script>
+</body>
+</html>
