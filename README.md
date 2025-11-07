@@ -1,46 +1,37 @@
-# Titans Atlas
+# Attack Titan Lineage
 
-Titans Atlas is a lightweight, multi-page fan site for *Attack on Titan*. It showcases the Nine Titans with responsive layouts, accessible interactions, and zero build tooling — ready to drop onto services like GitHub Pages or Netlify.
+Attack Titan Lineage is a spoiler-light fan site that explores the inheritors of the Attack Titan. It is built with a lightweight vanilla HTML/CSS/JS stack, ships original abstract silhouettes, and is ready to drop onto static hosts like GitHub Pages or Netlify.
 
-## Features
+## Project overview
+- Responsive layout with dedicated pages for the landing experience, interactive inheritor browser, about section, and a custom 404 page.
+- Dark/light theme toggle powered by CSS custom properties and `localStorage`, defaulting to the dark palette listed in the design spec.
+- Inheritor data sourced from `data/attack_titans.json`, with a JavaScript fallback to keep the UI working when the JSON file cannot be fetched (e.g., `file://` browsing).
+- Accessible modal dialog that mirrors the detail panel so mobile and keyboard users can read lineage details comfortably.
 
-- **Vanilla stack**: Semantic HTML, modular CSS, and plain JavaScript with no build step.
-- **Interactive Titans roster**: Client-side search, filters, hover tooltips, and accessible modals populated from JSON.
-- **Expanded dataset**: Includes categories, spoiler comfort levels, and notable variants beyond the Nine Titans.
-- **Original artwork**: Custom SVG silhouettes rendered with `currentColor` to blend into any theme.
-- **Adaptive theming**: Dim/light toggle that honours `prefers-color-scheme` and persists via `localStorage`.
-- **Keyboard-first UX**: Skip links, focus styles, focus trapping, and a `?` shortcut that opens an in-page help sheet.
-- **404 fallback**: Branded not-found page that links visitors back into the experience.
+## Run locally
+1. Clone or download this repository.
+2. Open `index.html` directly in your browser *or* serve the folder with a lightweight static server such as:
+   ```bash
+   python3 -m http.server
+   ```
+3. Visit `http://localhost:8000/index.html` (or whichever port you used). The scripts will attempt to fetch `data/attack_titans.json`; if the request is blocked, the fallback dataset defined in `scripts/main.js` keeps the site functional.
 
-## Getting Started
+## Deploy
+- All links and assets use relative paths, so you can upload the folder as-is to GitHub Pages, Netlify, Render, or any static host.
+- No build process is required—just commit the files or drag-and-drop the directory into your host’s dashboard.
+- Update social/profile links in the header/footer and `about.html` with your preferred handles before publishing.
 
-1. Clone or download the repository.
-2. Open `index.html` directly in your browser, or serve the directory with any static web server (e.g. `python3 -m http.server`).
-3. Explore `titans.html` for the interactive grid and `about.html` for project details.
+## Add or edit inheritors
+1. Open `data/attack_titans.json` and duplicate one of the existing objects.
+2. Adjust the required fields (`slug`, `name`, `era`, `summary`, etc.). Keep descriptions concise and spoiler-light.
+3. Create a corresponding silhouette in `assets/img/` using simple shapes and `currentColor`. Reference the new SVG via the `image` property.
+4. Reload `inheritors.html`. The list, detail panel, modal, and search will automatically display the new entry.
 
-### Customising Titan Data
+## Accessibility features
+- Visible focus outlines using the accent color, plus keyboard-accessible navigation, search, list items, and dialogs.
+- Modal dialog traps focus, supports Escape/backdrop dismissal, and restores focus to the trigger control.
+- Motion-reduced experience thanks to `@media (prefers-reduced-motion: reduce)` for hover lifts and transitions.
+- All imagery includes descriptive alt text; error handling swaps missing silhouettes with a generated fallback.
 
-All lore content lives in `data/titans.json`. To add or edit entries:
-
-1. Duplicate an existing object and update the fields (`slug`, `name`, `heightMeters`, `category`, `spoilerLevel`, `abilities`, etc.).
-2. Place a matching SVG silhouette in `assets/img/` and reference it via the `image` property.
-3. Keep summaries concise and spoiler-light when possible.
-4. Reload `titans.html`; the grid will automatically render the new Titan with full search/filter support.
-
-## Accessibility & Keyboard Controls
-
-- `Tab` / `Shift + Tab`: Move between navigation, chips, cards, and controls.
-- `Enter` / `Space`: Activate focused buttons or open Titan modals.
-- `Esc`: Close tooltips (when applicable), modals, and the help sheet.
-- `?`: Toggle the keyboard help popover.
-- Tooltips are announced politely for focused cards and respect `prefers-reduced-motion`.
-
-## Deployment
-
-- All assets use relative paths, making the site compatible with GitHub Pages, Netlify, Vercel, or any static host.
-- Update the Open Graph URLs (`og:url`, `og:image`) if you serve from a custom domain.
-- Replace the placeholder social handles and contact details in the footer and `about.html` with your own links.
-
-## License
-
-This project’s code is released under the MIT License (see `LICENSE`). *Attack on Titan* and associated intellectual property belong to their respective owners; Titans Atlas provides original silhouettes and educational summaries for non-commercial fan use only.
+## License & IP notice
+The code in this project is released under the MIT License (see `LICENSE`). *Attack on Titan* and related names remain the property of their respective rights holders. All silhouettes included here are original abstract artwork created solely for non-commercial fan use.

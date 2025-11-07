@@ -1,36 +1,91 @@
 (() => {
+  const storageKey = 'theme';
+  const root = document.documentElement;
   const btn = document.getElementById('themeToggle');
-  const apply = (m) => {
-    document.documentElement.dataset.theme = m;
-    localStorage.setItem('theme', m);
+
+  const applyTheme = (mode) => {
+    root.dataset.theme = mode;
+    localStorage.setItem(storageKey, mode);
   };
-  const saved = localStorage.getItem('theme');
-  if (saved) apply(saved);
-  if (btn) {
-    btn.addEventListener('click', () => {
-      const cur = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
-      apply(cur);
-    });
-  }
-  // Light theme variables if wanted (optional)
-  if (document.documentElement.dataset.theme === 'light') {
-    // Could swap CSS via class/data attribute; left as simple data flag.
+
+  const saved = localStorage.getItem(storageKey);
+  if (saved) {
+    applyTheme(saved);
+  } else {
+    root.dataset.theme = root.dataset.theme || 'dark';
   }
 
-  // Global fallback data function usable by all pages
-  window.TITANS_FALLBACK_DATA = async function TITANS_FALLBACK_DATA() {
-    try {
-      const r = await fetch('data/titans.json', { cache: 'no-store' });
-      if (!r.ok) throw new Error('HTTP '+r.status);
-      return await r.json();
-    } catch(e) {
-      // Fallback inline dataset (subset + expanded) to survive file:// and CORS issues
-      return [
-        {"slug":"colossal","name":"Colossal Titan","heightMeters":60,"type":"Colossal","category":"Nine","shifters":["Bertholdt Hoover","Armin Arlert"],"abilities":["Steam emission","Explosive transformation"],"weaknesses":["Slow","High stamina drain"],"firstAppearance":"S1E1","affiliations":["Various"],"image":"assets/img/colossal.svg","summary":"Skyscraper-class titan capable of catastrophic steam blasts.","funFact":"Transformation can generate a localized explosion.","spoilerLevel":"low"},
-        {"slug":"armored","name":"Armored Titan","heightMeters":15,"type":"Armored","category":"Nine","shifters":["Reiner Braun"],"abilities":["Armor plates","Charges"],"weaknesses":["Exposed joints","Heavy"],"firstAppearance":"S1","affiliations":["Various"],"image":"assets/img/armored.svg","summary":"Heavily plated titan built for assault and defense.","funFact":"Can shed armor to regain speed.","spoilerLevel":"low"},
-        {"slug":"beast","name":"Beast Titan","heightMeters":17,"type":"Beast","category":"Nine","shifters":["Zeke Yeager"],"abilities":["Devastating throws","Command presence"],"weaknesses":["Close quarters"],"firstAppearance":"S2","affiliations":["Various"],"image":"assets/img/beast.svg","summary":"Infamous for ranged dominance and battlefield control.","funFact":"Physiology varies by inheritor.","spoilerLevel":"low"},
-        {"slug":"attack","name":"Attack Titan","heightMeters":15,"type":"Attack","category":"Nine","shifters":["Eren Yeager","Grisha Yeager","Kruger"],"abilities":["Agility","Future memory fragments (lore)"],"weaknesses":["Stamina"],"firstAppearance":"S1","affiliations":["Various"],"image":"assets/img/attack.svg","summary":"Balanced fighter renowned for relentless forward drive.","funFact":"Links willpower to glimpses across time.","spoilerLevel":"low"}
-      ];
-    }
-  };
+  if (btn) {
+    btn.addEventListener('click', () => {
+      const next = root.dataset.theme === 'light' ? 'dark' : 'light';
+      applyTheme(next);
+    });
+  }
+
+  async function fetchJSON(url) {
+    const response = await fetch(url, { cache:'no-store' });
+    if (!response.ok) throw new Error('HTTP '+response.status);
+    return response.json();
+  }
+
+  function fallbackAttackData() {
+    return [
+      {
+        slug: 'eren-yeager',
+        name: 'Eren Yeager',
+        era: 'Paradise Island Era',
+        firstAppearance: 'Season 1',
+        abilities: ['Aggressive close-quarters combat', 'Exceptional resolve'],
+        weaknesses: ['Stamina management', 'Emotional overextension'],
+        image: 'assets/img/eren.svg',
+        summary: 'A determined inheritor associated with relentless forward motion.',
+        notableEvents: ['Defense of Trost (context)', 'Key confrontations across seasons'],
+        heightMeters: 15,
+        affiliations: ['Various (avoid spoilers)'],
+        spoilerLevel: 'low'
+      },
+      {
+        slug: 'grisha-yeager',
+        name: 'Grisha Yeager',
+        era: 'Prior Generation',
+        firstAppearance: 'Season 1 (backstory)',
+        abilities: ['Resolve', 'Passing of power'],
+        weaknesses: ['Limited on-screen combat'],
+        image: 'assets/img/grisha.svg',
+        summary: 'A pivotal predecessor tied to major lineage events.',
+        notableEvents: ['Important decisions affecting later eras'],
+        heightMeters: 15,
+        affiliations: ['Various'],
+        spoilerLevel: 'low'
+      },
+      {
+        slug: 'eren-kruger',
+        name: 'Eren Kruger',
+        era: 'Historical',
+        firstAppearance: 'Season 3 (backstory)',
+        abilities: ['Espionage', 'Long-term planning'],
+        weaknesses: ['Limited direct combat depiction'],
+        image: 'assets/img/kruger.svg',
+        summary: 'Shadowy figure whose actions shaped the lineage path.',
+        notableEvents: ['Critical transfer in history'],
+        heightMeters: 15,
+        affiliations: ['Historical associations'],
+        spoilerLevel: 'low'
+      }
+    ];
+  }
+
+  function selectFeatured(data, slugs) {
+    return data.filter(entry => slugs.includes(entry.slug));
+  }
+
+  function applyHashScroll(element) {
+    if (!element) return;
+    element.scrollIntoView({ block:'nearest' });
+  }
+
+  window.fetchJSON = fetchJSON;
+  window.ATTACK_FALLBACK = fallbackAttackData;
+  window.selectFeatured = selectFeatured;
+  window.applyHashScroll = applyHashScroll;
 })();

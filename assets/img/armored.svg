@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" aria-hidden="true" role="img">
-  <path d="M64 16 104 40v48L64 112 24 88V40Z" fill="none" stroke="currentColor" stroke-width="8" stroke-linejoin="round" />
-  <path d="M64 30 92 46 64 62 36 46Z" fill="currentColor" opacity="0.45" />
-  <path d="M64 70 96 52v28l-32 18-32-18V52z" fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="round" />
-</svg>
