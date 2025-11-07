@@ -69,13 +69,18 @@
         return;
       }
       if (emptyState) emptyState.hidden = true;
-      grid.innerHTML = list.map(item => `
-        <button class="card titan-card" type="button" data-slug="${item.slug}" role="listitem">
-          <img src="${escapeHTML(item.image || '')}" alt="${escapeHTML(item.name)} silhouette" loading="lazy">
-          <h3>${escapeHTML(item.name)}</h3>
-          <p class="muted">${escapeHTML(item.summary || '')}</p>
-        </button>
-      `).join('');
+      grid.innerHTML = list.map(item => {
+        const chips = (item.shifters || []).map(shifter => `<span class="chip">${escapeHTML(shifter)}</span>`).join('');
+        const chipsMarkup = chips ? `<div class="chips">${chips}</div>` : '';
+        return `
+          <button class="card titan-card" type="button" data-slug="${item.slug}" role="listitem">
+            <img src="${escapeHTML(item.image || '')}" alt="${escapeHTML(item.name)} silhouette" loading="lazy">
+            <h3>${escapeHTML(item.name)}</h3>
+            <p class="muted">${escapeHTML(item.summary || '')}</p>
+            ${chipsMarkup}
+          </button>
+        `;
+      }).join('');
       grid.querySelectorAll('button[data-slug]').forEach((button) => {
         const item = titansBySlug.get(button.dataset.slug);
         const img = button.querySelector('img');
@@ -183,16 +188,20 @@
 
     function buildModalMarkup(item) {
       const height = item.heightMeters != null ? `${item.heightMeters} m` : '—';
+      const chips = (item.shifters || []).map(shifter => `<span class="chip">${escapeHTML(shifter)}</span>`).join('');
+      const chipsMarkup = chips ? `<div class="chips">${chips}</div>` : '';
       return `
         <article class="detail">
           <img src="${escapeHTML(item.image || '')}" alt="${escapeHTML(item.name)} silhouette">
           <div>
             <h2 id="titanModalTitle">${escapeHTML(item.name)}</h2>
             <p class="muted">${escapeHTML(item.summary || '')}</p>
+            ${chipsMarkup}
             <dl>
               <dt>Type</dt><dd>${escapeHTML(item.type || '—')}</dd>
               <dt>Category</dt><dd>${escapeHTML(item.category || '—')}</dd>
               <dt>Height</dt><dd>${escapeHTML(height)}</dd>
+              <dt>Inheritors</dt><dd>${escapeHTML(listOrDash(item.shifters))}</dd>
               <dt>Abilities</dt><dd>${escapeHTML(listOrDash(item.abilities))}</dd>
               <dt>Weaknesses</dt><dd>${escapeHTML(listOrDash(item.weaknesses))}</dd>
               <dt>First appearance</dt><dd>${escapeHTML(item.firstAppearance || '—')}</dd>

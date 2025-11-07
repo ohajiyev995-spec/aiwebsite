@@ -149,6 +149,14 @@ a:hover, a:focus-visible { text-decoration:underline; }
   padding:.75rem;
 }
 
+.chips { display:flex; flex-wrap:wrap; gap:.35rem; margin-top:.5rem; }
+.chip {
+  padding:.15rem .5rem;
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+  font-size:.85rem;
+}
+
 .muted { color:var(--muted); }
 
 .controls {
