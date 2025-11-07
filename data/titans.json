@@ -46,6 +46,7 @@
     "category": "Nine",
     "shifters": ["Bertholdt Hoover", "Armin Arlert"],
     "abilities": [
+      "Gigantic scale (~60m height)",
       "Releases intense heat",
       "Explosive transformation"
     ],
@@ -86,7 +87,7 @@
     "abilities": [
       "Animal-like appearance (Zeke’s is ape-like)",
       "Throws with deadly precision",
-      "If holder has royal blood, can transform Eldians with a scream"
+      "Royal-blood scream can transform Eldians"
     ],
     "weaknesses": ["Vulnerable in close quarters"],
     "firstAppearance": "Season 2",

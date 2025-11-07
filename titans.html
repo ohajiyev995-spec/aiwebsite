@@ -75,10 +75,10 @@
       </select>
     </section>
 
-    <section aria-labelledby="gridHeading">
-      <h2 id="gridHeading" class="sr-only">Titan results</h2>
+      <section aria-labelledby="gridLabel">
+        <h2 id="gridLabel" class="sr-only">Titan results</h2>
       <div id="titanGrid" class="grid titan-grid" role="list" aria-live="polite"></div>
-      <p id="titanEmpty" class="muted" hidden>No titans match those filters. Try clearing some selections.</p>
+        <p id="empty" class="muted" hidden>No titans match those filters. Try clearing some selections.</p>
     </section>
   </main>
 
@@ -92,10 +92,22 @@
     </div>
   </footer>
 
-  <div id="titanModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="titanModalTitle" hidden>
-    <div class="modal__panel">
-      <button class="modal__close" type="button" aria-label="Close">&times;</button>
-      <div id="titanModalContent"></div>
+    <div id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+      <div class="modal__panel" role="document">
+        <button class="modal__close" type="button" aria-label="Close">&times;</button>
+        <h2 id="modalTitle"></h2>
+        <img id="modalImg" alt="" loading="lazy">
+        <div class="specs">
+          <p><strong>Type:</strong> <span id="modalType"></span></p>
+          <p><strong>Category:</strong> <span id="modalCategory"></span></p>
+          <p><strong>Height:</strong> <span id="modalHeight"></span> m</p>
+          <p><strong>Inheritors:</strong> <span id="modalShifters"></span></p>
+          <p><strong>Abilities:</strong> <span id="modalAbilities"></span></p>
+          <p><strong>Weaknesses:</strong> <span id="modalWeaknesses"></span></p>
+          <p><strong>First appearance:</strong> <span id="modalFirst"></span></p>
+          <p><strong>Affiliations:</strong> <span id="modalAff"></span></p>
+          <p><strong>Fun fact:</strong> <span id="modalFun"></span></p>
+        </div>
     </div>
   </div>
 
