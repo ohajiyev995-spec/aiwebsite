@@ -5,19 +5,25 @@
     "heightMeters": 13,
     "type": "Founding",
     "category": "Nine",
-    "shifters": ["Ymir Fritz", "Eren Yeager (later)"],
+    "image": "assets/img/titans/founding.svg",
+    "summary": "Origin Titan linked to the Coordinate; can command Titans and affect Eldians’ memories/bodies.",
     "abilities": [
-      "Controls all other Titans",
+      "Controls other Titans",
       "Manipulates Eldians’ memories and bodies",
-      "Full power only with royal blood"
+      "Full power only usable with royal blood"
     ],
-    "weaknesses": ["Royal-blood requirement for full use"],
+    "weaknesses": ["Royal-blood requirement to fully access power"],
     "firstAppearance": "Lore (early), revealed later",
     "affiliations": ["Eldia (historical)"],
-    "image": "assets/img/founding.svg",
-    "summary": "Origin Titan tied to the Coordinate; can command Titans and affect Eldians.",
-    "funFact": "Its conditions can drastically expand or limit its reach.",
-    "spoilerLevel": "low"
+    "spoilerLevel": "medium",
+    "inheritors": [
+      { "slug": "ymir-fritz", "name": "Ymir Fritz", "image": "assets/img/inheritors/ymir-fritz.svg", "notes": "Origin point of Titan powers (lore)." },
+      { "slug": "karl-fritz", "name": "Karl Fritz", "image": "assets/img/inheritors/karl-fritz.svg", "notes": "Royal line (historical)." },
+      { "slug": "uri-reiss", "name": "Uri Reiss", "image": "assets/img/inheritors/uri-reiss.svg", "notes": "Royal inheritor (Reiss)." },
+      { "slug": "frieda-reiss", "name": "Frieda Reiss", "image": "assets/img/inheritors/frieda-reiss.svg", "notes": "Last royal holder inside the Walls." },
+      { "slug": "grisha-yeager", "name": "Grisha Yeager", "image": "assets/img/inheritors/grisha-yeager.svg", "notes": "Briefly held after taking it from Frieda." },
+      { "slug": "eren-yeager", "name": "Eren Yeager", "image": "assets/img/inheritors/eren-yeager.svg", "notes": "Later inheritor; special conditions apply." }
+    ]
   },
   {
     "slug": "attack",
@@ -25,18 +31,21 @@
     "heightMeters": 15,
     "type": "Attack",
     "category": "Nine",
-    "shifters": ["Eren Yeager", "Grisha Yeager", "Eren Kruger"],
+    "image": "assets/img/titans/attack.svg",
+    "summary": "Balanced fighter defined by relentless drive; connected to future/past memory fragments (lore).",
     "abilities": [
-      "Fighting spirit; freedom-loving nature",
+      "Fighting spirit / freedom-leaning nature",
       "Can see memories of future inheritors"
     ],
     "weaknesses": ["Typical stamina/steam limits"],
     "firstAppearance": "Season 1",
     "affiliations": ["Various"],
-    "image": "assets/img/attack.svg",
-    "summary": "Balanced fighter known for relentless drive and unique memory lore.",
-    "funFact": "Often associated with moving forward.",
-    "spoilerLevel": "low"
+    "spoilerLevel": "low",
+    "inheritors": [
+      { "slug": "eren-kruger", "name": "Eren Kruger", "image": "assets/img/inheritors/eren-kruger.svg", "notes": "Historical predecessor." },
+      { "slug": "grisha-yeager", "name": "Grisha Yeager", "image": "assets/img/inheritors/grisha-yeager.svg", "notes": "Inherited from Kruger." },
+      { "slug": "eren-yeager", "name": "Eren Yeager", "image": "assets/img/inheritors/eren-yeager.svg", "notes": "Inherited from Grisha." }
+    ]
   },
   {
     "slug": "colossal",
@@ -44,19 +53,17 @@
     "heightMeters": 60,
     "type": "Colossal",
     "category": "Nine",
-    "shifters": ["Bertholdt Hoover", "Armin Arlert"],
-    "abilities": [
-      "Gigantic scale (~60m height)",
-      "Releases intense heat",
-      "Explosive transformation"
-    ],
+    "image": "assets/img/titans/colossal.svg",
+    "summary": "Skyscraper-class Titan with catastrophic steam and explosive transformation.",
+    "abilities": ["Releases intense heat", "Explosive transformation"],
     "weaknesses": ["Very slow movement", "Heavy stamina drain"],
     "firstAppearance": "S1E1",
     "affiliations": ["Various"],
-    "image": "assets/img/colossal.svg",
-    "summary": "Skyscraper-class Titan with catastrophic steam and explosive entry.",
-    "funFact": "Its appearance reshapes battlefields instantly.",
-    "spoilerLevel": "low"
+    "spoilerLevel": "low",
+    "inheritors": [
+      { "slug": "bertholdt-hoover", "name": "Bertholdt Hoover", "image": "assets/img/inheritors/bertholdt-hoover.svg", "notes": "Initial wielder in the story era." },
+      { "slug": "armin-arlert", "name": "Armin Arlert", "image": "assets/img/inheritors/armin-arlert.svg", "notes": "Later inheritor." }
+    ]
   },
   {
     "slug": "armored",
@@ -64,18 +71,16 @@
     "heightMeters": 15,
     "type": "Armored",
     "category": "Nine",
-    "shifters": ["Reiner Braun"],
-    "abilities": [
-      "Hardened armor plates",
-      "Excellent for defense and close combat"
-    ],
+    "image": "assets/img/titans/armored.svg",
+    "summary": "Heavily plated; excels at defense and close combat.",
+    "abilities": ["Hardened armor plates", "Powerful charges"],
     "weaknesses": ["Joints less protected", "Weight reduces speed"],
     "firstAppearance": "Season 1",
     "affiliations": ["Various"],
-    "image": "assets/img/armored.svg",
-    "summary": "Heavily plated, ideal for breaching and close engagements.",
-    "funFact": "Armor can be selectively shed for mobility.",
-    "spoilerLevel": "low"
+    "spoilerLevel": "low",
+    "inheritors": [
+      { "slug": "reiner-braun", "name": "Reiner Braun", "image": "assets/img/inheritors/reiner-braun.svg", "notes": "Primary wielder in the story era." }
+    ]
   },
   {
     "slug": "beast",
@@ -83,19 +88,20 @@
     "heightMeters": 17,
     "type": "Beast",
     "category": "Nine",
-    "shifters": ["Zeke Yeager"],
+    "image": "assets/img/titans/beast.svg",
+    "summary": "Ranged dominance; inheritor physiology can vary. Special effects with royal-blood scream (context).",
     "abilities": [
-      "Animal-like appearance (Zeke’s is ape-like)",
-      "Throws with deadly precision",
-      "Royal-blood scream can transform Eldians"
+      "Deadly precision throws",
+      "Potential to transform Eldians via scream (royal blood context)"
     ],
     "weaknesses": ["Vulnerable in close quarters"],
     "firstAppearance": "Season 2",
     "affiliations": ["Various"],
-    "image": "assets/img/beast.svg",
-    "summary": "Ranged dominance and command presence with unique scream conditions.",
-    "funFact": "Physiology can vary by inheritor.",
-    "spoilerLevel": "low"
+    "spoilerLevel": "medium",
+    "inheritors": [
+      { "slug": "tom-ksaver", "name": "Tom Ksaver", "image": "assets/img/inheritors/tom-ksaver.svg", "notes": "Predecessor and mentor." },
+      { "slug": "zeke-yeager", "name": "Zeke Yeager", "image": "assets/img/inheritors/zeke-yeager.svg", "notes": "Main wielder in the story era." }
+    ]
   },
   {
     "slug": "female",
@@ -103,19 +109,16 @@
     "heightMeters": 14,
     "type": "Female",
     "category": "Nine",
-    "shifters": ["Annie Leonhart"],
-    "abilities": [
-      "Versatile and balanced in speed, strength, endurance",
-      "Can harden parts of the body",
-      "Can attract Pure Titans"
-    ],
+    "image": "assets/img/titans/female.svg",
+    "summary": "Versatile, balanced, capable of selective hardening and luring Pure Titans.",
+    "abilities": ["Selective hardening", "Luring scream (situational)"],
     "weaknesses": ["Susceptible to anti-hardening tactics"],
     "firstAppearance": "Season 1",
     "affiliations": ["Various"],
-    "image": "assets/img/female.svg",
-    "summary": "Adaptive fighter with precise hardening and tactical luring.",
-    "funFact": "Known for strategic, disciplined combat.",
-    "spoilerLevel": "low"
+    "spoilerLevel": "low",
+    "inheritors": [
+      { "slug": "annie-leonhart", "name": "Annie Leonhart", "image": "assets/img/inheritors/annie-leonhart.svg", "notes": "Known wielder in story era." }
+    ]
   },
   {
     "slug": "jaw",
@@ -123,18 +126,19 @@
     "heightMeters": 5,
     "type": "Jaw",
     "category": "Nine",
-    "shifters": ["Porco Galliard", "Falco Grice", "Ymir"],
-    "abilities": [
-      "Smallest and fastest Titan",
-      "Extremely sharp claws and teeth"
-    ],
+    "image": "assets/img/titans/jaw.svg",
+    "summary": "Smallest and fastest; devastating claws and bite force.",
+    "abilities": ["Extreme bite force", "High agility"],
     "weaknesses": ["Light frame; lower endurance"],
     "firstAppearance": "Season 2",
     "affiliations": ["Various"],
-    "image": "assets/img/jaw.svg",
-    "summary": "Tiny but ferocious; speed and bite force define its style.",
-    "funFact": "Can damage hardened materials in certain contexts.",
-    "spoilerLevel": "low"
+    "spoilerLevel": "medium",
+    "inheritors": [
+      { "slug": "marcel-galliard", "name": "Marcel Galliard", "image": "assets/img/inheritors/marcel-galliard.svg", "notes": "Earlier known holder." },
+      { "slug": "ymir", "name": "Ymir", "image": "assets/img/inheritors/ymir.svg", "notes": "Brief wielder." },
+      { "slug": "porco-galliard", "name": "Porco Galliard", "image": "assets/img/inheritors/porco-galliard.svg", "notes": "Later wielder." },
+      { "slug": "falco-grice", "name": "Falco Grice", "image": "assets/img/inheritors/falco-grice.svg", "notes": "Subsequent wielder." }
+    ]
   },
   {
     "slug": "cart",
@@ -142,19 +146,16 @@
     "heightMeters": 4,
     "type": "Cart",
     "category": "Nine",
-    "shifters": ["Pieck Finger"],
-    "abilities": [
-      "Quadrupedal; optimized for speed, endurance, transport",
-      "Can carry heavy artillery",
-      "Can stay transformed for months"
-    ],
+    "image": "assets/img/titans/cart.svg",
+    "summary": "Quadrupedal endurance; speed and transport; can mount heavy gear.",
+    "abilities": ["Endurance", "Payload support", "Quadrupedal speed"],
     "weaknesses": ["Low offense without equipment"],
     "firstAppearance": "Season 3",
     "affiliations": ["Various"],
-    "image": "assets/img/cart.svg",
-    "summary": "Long-duration support Titan for gear and mobility.",
-    "funFact": "Endurance exceeds other Titan forms.",
-    "spoilerLevel": "low"
+    "spoilerLevel": "low",
+    "inheritors": [
+      { "slug": "pieck-finger", "name": "Pieck Finger", "image": "assets/img/inheritors/pieck-finger.svg", "notes": "Known wielder with long transformation endurance." }
+    ]
   },
   {
     "slug": "war-hammer",
@@ -162,17 +163,16 @@
     "heightMeters": 15,
     "type": "War Hammer",
     "category": "Nine",
-    "shifters": ["Lara Tybur", "Eren Yeager (later)"],
-    "abilities": [
-      "Creates weapons/structures from hardened Titan flesh",
-      "Unique remote control from outside the Titan body"
-    ],
-    "weaknesses": ["Control link/cable exposure when remote-controlling"],
+    "image": "assets/img/titans/warhammer.svg",
+    "summary": "Creates weapons/structures via hardening; can be controlled remotely in special conditions.",
+    "abilities": ["Externalized hardening weapons", "Unique remote control (lore)"],
+    "weaknesses": ["Exposure of remote control link/cable"],
     "firstAppearance": "Season 4",
     "affiliations": ["Tybur family"],
-    "image": "assets/img/warhammer.svg",
-    "summary": "Highly creative hardening that can reshape the battlefield.",
-    "funFact": "Remote control distinguishes it among the Nine.",
-    "spoilerLevel": "low"
+    "spoilerLevel": "medium",
+    "inheritors": [
+      { "slug": "lara-tybur", "name": "Lara Tybur", "image": "assets/img/inheritors/lara-tybur.svg", "notes": "Tybur family bearer." },
+      { "slug": "eren-yeager", "name": "Eren Yeager", "image": "assets/img/inheritors/eren-yeager.svg", "notes": "Later wielder." }
+    ]
   }
 ]

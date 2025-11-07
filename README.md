@@ -1,43 +1,31 @@
-# Attack Titan Lineage — Titans Compendium
+# Titans Compendium
 
-Attack Titan Lineage has expanded into a spoiler-light Titans Compendium covering both the Attack Titan inheritors and a curated set of Nine Titans plus notable pure/abnormal forms. Everything is built with a lightweight vanilla HTML/CSS/JS stack, ships original abstract silhouettes, and is ready to drop onto static hosts like GitHub Pages or Netlify.
+A spoiler-light, static fan reference that catalogs every Nine Titan alongside all known inheritors. Built entirely with vanilla HTML, CSS, and JavaScript, the site ships original abstract silhouettes, responsive layouts, and keyboard-friendly interactions.
 
-## Project overview
-- Responsive layout with dedicated pages for the landing experience, interactive inheritor browser, titan compendium grid, about section, and a custom 404 page.
-- Dark/light theme toggle powered by CSS custom properties and `localStorage`, defaulting to the dark palette listed in the design spec.
-- Inheritor data sourced from `data/attack_titans.json` and titan profiles from `data/titans.json`, each paired with fallback datasets so the UI still renders if `fetch` fails (e.g., when opened via `file://`).
-- Accessible modal dialogs for both the lineage and titan pages so mobile and keyboard users can read focused details comfortably.
+## Pages
+- `index.html` – Landing page with hero copy and featured titans pulled from the dataset.
+- `titans.html` – Interactive grid of the Nine Titans with search, filters, inheritor chips, and an accessible modal.
+- `about.html` – Project overview, build notes, accessibility highlights, and disclaimers.
+- `404.html` – Branded not-found page with a quick route back home.
 
-## Run locally
+## Running locally
 1. Clone or download this repository.
-2. Open `index.html` directly in your browser *or* serve the folder with a lightweight static server such as:
-   ```bash
-   python3 -m http.server
-   ```
-3. Visit `http://localhost:8000/index.html` (or whichever port you used). The scripts will attempt to fetch both `data/attack_titans.json` and `data/titans.json`; if either request is blocked, the fallback datasets defined in `scripts/main.js` keep the site functional.
+2. Double-click `index.html` to open it in a browser **or** serve the folder with a static server (e.g. `python3 -m http.server`).
+3. The scripts fetch `data/titans.json`; if the request fails (such as `file://` browsing), a built-in fallback dataset keeps the site functional.
 
-## Deploy
-- All links and assets use relative paths, so you can upload the folder as-is to GitHub Pages, Netlify, Render, or any static host.
-- No build process is required—just commit the files or drag-and-drop the directory into your host’s dashboard.
-- Update social/profile links in the header/footer and `about.html` with your preferred handles before publishing.
+## Deployment
+- Everything uses relative paths so you can deploy to GitHub Pages, Netlify, Render, or any static host with no build step.
+- Commit/push the repo as-is, or drag-and-drop the folder into your host’s dashboard.
 
-## Add or edit inheritors
-1. Open `data/attack_titans.json` and duplicate one of the existing objects.
-2. Adjust the required fields (`slug`, `name`, `era`, `summary`, etc.). Keep descriptions concise and spoiler-light.
-3. Create a corresponding silhouette in `assets/img/` using simple shapes and `currentColor`. Reference the new SVG via the `image` property.
-4. Reload `inheritors.html`. The list, detail panel, modal, and search will automatically display the new entry.
-
-## Add or edit titans
-1. Open `data/titans.json` and duplicate an existing titan object.
-2. Update the fields (`slug`, `name`, `type`, `category`, `abilities`, `funFact`, etc.) while keeping summaries spoiler-light.
-3. Add or update the matching SVG silhouette inside `assets/img/`, ensuring it uses `currentColor` so themes can style it.
-4. Reload `titans.html`. The grid, filters, and modal will automatically reflect the updated dataset.
+## Extending the dataset
+1. Edit `data/titans.json`. Add a new Titan object or append to an existing titan’s `inheritors` array.
+2. Place the matching SVG silhouette in `assets/img/titans/` or `assets/img/inheritors/` as appropriate. Keep the artwork abstract and ensure filenames match the JSON paths exactly.
+3. Refresh `titans.html`. The UI will automatically render the new entries.
 
 ## Accessibility features
-- Visible focus outlines using the accent color, plus keyboard-accessible navigation, search, list items, and dialogs.
-- Modal dialogs trap focus, support Escape/backdrop dismissal, and restore focus to the trigger control.
-- Motion-reduced experience thanks to `@media (prefers-reduced-motion: reduce)` for hover lifts and transitions.
-- All imagery includes descriptive alt text; error handling swaps missing silhouettes with a generated fallback.
+- Visible focus rings, keyboard-activatable cards, and ESC/backdrop-friendly modals with focus trapping.
+- `prefers-reduced-motion` respected to tone down hover elevations and transitions.
+- Fallback silhouettes and polite announcements ensure the experience works even when images fail.
 
-## License & IP notice
-The code in this project is released under the MIT License (see `LICENSE`). *Attack on Titan* and related names remain the property of their respective rights holders. All silhouettes included here are original abstract artwork created solely for non-commercial fan use.
+## Disclaimer
+Attack on Titan and related intellectual property belong to their respective rights holders. The silhouettes in this project are original abstract artwork created solely for non-commercial, educational fan use.

@@ -1,13 +1,10 @@
 <!doctype html>
 <html lang="en" data-theme="dark">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Attack Titan Lineage — About</title>
-  <meta name="description" content="Learn how the Attack Titan Lineage fan site was made, including accessibility notes and important disclaimers." />
-  <meta property="og:title" content="About Attack Titan Lineage" />
-  <meta property="og:description" content="Learn how the spoiler-light Attack Titan Lineage fan project was designed and built." />
-  <meta property="og:type" content="website" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>About — Titans Compendium</title>
+  <meta name="description" content="Learn how the Titans Compendium was built with vanilla HTML/CSS/JS, accessibility in mind, and spoiler-light data.">
   <link rel="icon" href="assets/favicon.ico">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=DM+Serif+Display:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/main.css">
@@ -15,10 +12,9 @@
 <body>
   <header class="site-header">
     <div class="container site-header__inner">
-      <a class="brand" href="index.html">Attack Titan Lineage</a>
+      <a class="brand" href="index.html">Titans Compendium</a>
       <nav class="nav" aria-label="Primary">
         <a href="index.html">Home</a>
-        <a href="inheritors.html">Inheritors</a>
         <a href="titans.html">Titans</a>
         <a href="about.html" aria-current="page">About</a>
         <button id="themeToggle" class="btn" type="button">Theme</button>
@@ -27,29 +23,28 @@
   </header>
 
   <main class="container flow">
-    <h1>About this fan project</h1>
-    <p>Attack Titan Lineage is now a broader, spoiler-light <strong>Titans Compendium</strong> that highlights both the Attack Titan inheritors and a curated overview of the Nine Titans alongside notable pure/abnormal sightings. Content stays high-level to preserve key story beats.</p>
+    <h1>About Titans Compendium</h1>
+    <p>This spoiler-light fan reference charts every Nine Titan alongside all known inheritors. Each profile is data-driven, fully client-side, and keeps focus on accessibility so anyone can explore the lineage comfortably.</p>
 
     <h2>How it’s built</h2>
     <ul>
-      <li>Static vanilla HTML, CSS, and JavaScript—no frameworks or build tooling.</li>
-      <li>Structured data stored in <code>data/attack_titans.json</code>, with a JavaScript fallback so pages still render if the JSON can’t be fetched.</li>
-      <li>Modular scripts: <code>scripts/main.js</code> handles theme toggling, shared helpers, and featured sections; <code>scripts/inheritors.js</code> powers the lineage roster; <code>scripts/titans.js</code> drives the titan compendium grid and modal.</li>
+      <li>Vanilla HTML, CSS, and JavaScript—no frameworks or build steps.</li>
+      <li>Content sourced from <code>data/titans.json</code>, fetched at runtime with a fallback dataset for <code>file://</code> browsing.</li>
+      <li>Original abstract silhouettes rendered with <code>currentColor</code> so themes remain consistent.</li>
     </ul>
 
-    <h2>Accessibility notes</h2>
+    <h2>Accessibility highlights</h2>
     <ul>
-      <li>Keyboard-focused navigation with prominent outlines using the accent color and visible focus states across cards and controls.</li>
-      <li>Reduced motion settings respected&mdash;hover lifts and transitions tone down when <code>prefers-reduced-motion</code> is enabled.</li>
-      <li>Modal dialogs on both lineage and titan pages trap focus, support Escape/backdrop dismissal, and restore focus to the triggering control.</li>
+      <li>Keyboard navigation supports filter controls, cards, and modal interactions with visible focus rings.</li>
+      <li><code>prefers-reduced-motion</code> respected to tone down hover elevation and transitions.</li>
+      <li>Dialogs trap focus, close via ESC/backdrop, and restore focus to the triggering element.</li>
     </ul>
 
     <h2>Disclaimer</h2>
-    <p>This site is a non-commercial fan work. <em>Attack on Titan</em> and related names, characters, and stories belong to their respective owners. All silhouettes on this site are original abstract artwork created specifically for this project.</p>
+    <p>This is a non-commercial fan site. <em>Attack on Titan</em> and all related names, characters, and stories belong to their respective rights holders. The silhouettes included here are original abstract artwork created solely for this educational tribute.</p>
 
-    <h2>Credits</h2>
+    <h2>Connect</h2>
     <ul>
-      <li>Author: Your Name</li>
       <li>LinkedIn: <a href="https://www.linkedin.com/in/your-handle" target="_blank" rel="noopener">your-handle</a></li>
       <li>GitHub: <a href="https://github.com/your-handle" target="_blank" rel="noopener">your-handle</a></li>
       <li>Email: <a href="mailto:you@example.com">you@example.com</a></li>
@@ -60,7 +55,7 @@
     <div class="container site-footer__inner">
       <a href="index.html">Home</a>
       <span aria-hidden="true">•</span>
-      <a href="inheritors.html">Inheritors</a>
+      <a href="titans.html">Titans</a>
     </div>
   </footer>
 
