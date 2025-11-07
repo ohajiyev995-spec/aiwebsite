@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Titans Compendium · Titans Index</title>
+    <meta name="description" content="Search and filter the Titans Compendium to explore each of the Nine and their inheritors.">
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <meta property="og:title" content="Titans Compendium · Titans Index">
+    <meta property="og:description" content="Interactive Titans index with spoiler-aware filters, accessible modals, and inheritor lineage.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="assets/img/titans/warhammer.svg">
+    <meta property="og:url" content="./titans.html">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="scripts/main.js" defer></script>
+    <script src="scripts/titans.js" defer></script>
+  </head>
+  <body data-page="titans">
+    <a class="skip-link" href="#mainContent">Skip to content</a>
+    <header class="site-header">
+      <div class="container">
+        <div class="brand">
+          <a href="index.html" class="brand__link">Titans Compendium</a>
+        </div>
+        <nav aria-label="Main navigation">
+          <ul class="nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="titans.html" aria-current="page">Titans</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </nav>
+        <button id="themeToggle" class="btn btn-ghost" type="button" aria-label="Toggle theme">
+          <span class="btn__label">Toggle Theme</span>
+        </button>
+      </div>
+    </header>
+    <main id="mainContent">
+      <section class="container">
+        <header class="section-header">
+          <h1>Titans Directory</h1>
+          <p class="muted">Search, filter, and inspect lore-aware profiles. Keyboard-friendly and spoiler-sensitive.</p>
+        </header>
+        <form class="controls" id="filters" autocomplete="off">
+          <label class="field">
+            <span class="field__label">Search</span>
+            <input id="q" name="q" class="input" type="search" placeholder="Search titans or inheritors" />
+          </label>
+          <label class="field">
+            <span class="field__label">Category</span>
+            <select id="category" name="category" class="input">
+              <option value="all">All</option>
+              <option value="Nine">Nine</option>
+            </select>
+          </label>
+          <label class="field">
+            <span class="field__label">Type</span>
+            <select id="type" name="type" class="input">
+              <option value="all">All</option>
+              <option value="Founding">Founding</option>
+              <option value="Attack">Attack</option>
+              <option value="Colossal">Colossal</option>
+              <option value="Armored">Armored</option>
+              <option value="Female">Female</option>
+              <option value="Beast">Beast</option>
+              <option value="Jaw">Jaw</option>
+              <option value="Cart">Cart</option>
+              <option value="War Hammer">War Hammer</option>
+            </select>
+          </label>
+          <label class="field">
+            <span class="field__label">Min Height</span>
+            <input id="heightMin" name="heightMin" class="input" type="number" inputmode="decimal" min="0" step="1" placeholder="0" />
+          </label>
+          <label class="field">
+            <span class="field__label">Max Height</span>
+            <input id="heightMax" name="heightMax" class="input" type="number" inputmode="decimal" min="0" step="1" placeholder="120" />
+          </label>
+          <label class="field">
+            <span class="field__label">Spoilers</span>
+            <select id="spoilers" name="spoilers" class="input">
+              <option value="none">None</option>
+              <option value="low">Low</option>
+              <option value="medium" selected>Medium</option>
+            </select>
+          </label>
+        </form>
+        <div id="titanGrid" class="grid cards-grid" role="list" aria-live="polite">
+          <div class="card card--placeholder">
+            <p class="muted">Loading titans…</p>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="container footer__inner">
+        <p class="muted">Crafted as a fan-made educational resource.</p>
+        <ul class="social">
+          <li><a href="https://www.linkedin.com" target="_blank" rel="noreferrer noopener">LinkedIn</a></li>
+          <li><a href="https://github.com" target="_blank" rel="noreferrer noopener">GitHub</a></li>
+          <li><a href="mailto:info@example.com">Email</a></li>
+        </ul>
+      </div>
+    </footer>
+
+    <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modalTitle">
+      <div class="modal__panel" role="document">
+        <button type="button" class="modal__close btn btn-ghost" aria-label="Close details" data-close-modal>
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="modal__media">
+          <img id="modalImg" src="" alt="" />
+        </div>
+        <div class="modal__body">
+          <h2 id="modalTitle"></h2>
+          <div class="specs">
+            <p><strong>Type:</strong> <span id="modalType"></span></p>
+            <p><strong>Category:</strong> <span id="modalCategory"></span></p>
+            <p><strong>Height:</strong> <span id="modalHeight"></span></p>
+            <p><strong>First Appearance:</strong> <span id="modalFirst"></span></p>
+            <p><strong>Affiliations:</strong> <span id="modalAff"></span></p>
+          </div>
+          <section>
+            <h3>Abilities</h3>
+            <ul id="modalAbilities"></ul>
+          </section>
+          <section>
+            <h3>Weaknesses</h3>
+            <ul id="modalWeaknesses"></ul>
+          </section>
+          <section>
+            <h3>Inheritors</h3>
+            <div id="modalShifters" class="chips"></div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

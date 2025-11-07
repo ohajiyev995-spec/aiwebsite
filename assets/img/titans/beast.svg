@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <rect width="120" height="120" rx="24" fill="currentColor" opacity="0.08"/>
+  <path fill="currentColor" d="M60 18c20 0 34 12 34 26 0 12-8 22-20 24 10 4 16 14 16 20 0 9-11 16-30 16s-30-7-30-16c0-6 6-16 16-20-12-2-20-12-20-24 0-14 14-26 34-26z" opacity="0.82"/>
+  <path fill="currentColor" d="M44 46c0-6 6-12 16-12s16 6 16 12-6 12-16 12-16-6-16-12z" opacity="0.95"/>
+  <path fill="currentColor" d="M38 98c0-8 10-18 22-18s22 10 22 18H38z" opacity="0.55"/>
+  <path fill="currentColor" d="M32 44l8-8 6 8-10 6-4-6z" opacity="0.45"/>
+  <path fill="currentColor" d="M88 44l-8-8-6 8 10 6 4-6z" opacity="0.45"/>
+</svg>
