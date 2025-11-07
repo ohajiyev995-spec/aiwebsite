@@ -1,0 +1,5 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'>
+  <rect width='160' height='160' rx='20' fill='currentColor' opacity='0.12'/>
+  <path fill='currentColor' d='M40 114 70 30h20l30 84-20 16H60l-20-16Z' />
+  <path fill='currentColor' opacity='0.6' d='M62 96h36l-10 32H72l-10-32Z' />
+</svg>

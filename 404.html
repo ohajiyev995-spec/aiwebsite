@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page Not Found | Titans Compendium</title>
+  <meta name="description" content="The page you were looking for does not exist on Titans Compendium."/>
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <script>
+    try {
+      var mode = localStorage.getItem('theme') || 'dark';
+      document.documentElement.dataset.theme = mode;
+    } catch (err) {
+      document.documentElement.dataset.theme = 'dark';
+    }
+  </script>
+</head>
+<body class="not-found">
+  <main class="container">
+    <section class="card not-found__card" role="alert">
+      <h1>Lost in the Paths</h1>
+      <p class="muted">The page you sought has shifted beyond reach. Return to the compendium to continue your journey.</p>
+      <a class="btn btn-primary" href="index.html">Go Home</a>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About | Titans Compendium</title>
+  <meta name="description" content="Learn about the Titans Compendium project, accessibility choices, and fan-made disclaimers."/>
+  <meta property="og:title" content="About Titans Compendium"/>
+  <meta property="og:description" content="Background on this fan-made Titans Compendium, accessibility highlights, and IP disclaimers."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://example.com/about.html"/>
+  <meta property="og:image" content="assets/img/titans/warhammer.svg"/>
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <script>
+    try {
+      var mode = localStorage.getItem('theme') || 'dark';
+      document.documentElement.dataset.theme = mode;
+    } catch (err) {
+      document.documentElement.dataset.theme = 'dark';
+    }
+  </script>
+</head>
+<body>
+  <header class="site-header container" role="banner">
+    <a class="brand" href="index.html">Titans Compendium</a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="titans.html">Titans</a>
+      <a href="about.html" aria-current="page">About</a>
+    </nav>
+    <button id="themeToggle" class="btn" type="button">Toggle theme</button>
+  </header>
+
+  <main class="container">
+    <article>
+      <header>
+        <h1>About the Compendium</h1>
+        <p class="muted">A fan-built archive of the Nine Titans and every inheritor they have ever had in the story.</p>
+      </header>
+
+      <section>
+        <h2>Purpose</h2>
+        <p>The Titans Compendium is a spoiler-aware reference for fans who want quick lore overviews without diving into full episode summaries. It highlights each Titan’s defining traits, powers, limitations, and known inheritors.</p>
+      </section>
+
+      <section>
+        <h2>How it was built</h2>
+        <p>This site is handcrafted with vanilla HTML, CSS, and JavaScript. Data lives in a single JSON file, so the same information powers every page. When network access is unavailable, lightweight inline fallbacks keep the featured Titans and directory functional.</p>
+      </section>
+
+      <section>
+        <h2>Accessibility</h2>
+        <p>Keyboard users can tab through every interactive element, open cards with Enter or Space, and close dialogs with Escape. Focus outlines are always visible, motion respects the user’s reduced-motion setting, and the modal traps focus for screen reader users.</p>
+      </section>
+
+      <section>
+        <h2>Disclaimer</h2>
+        <p>Attack on Titan and related intellectual property belong to their respective rights holders. All silhouettes used here are original abstract artwork created for this educational, non-commercial fan project.</p>
+      </section>
+
+      <section>
+        <h2>Connect</h2>
+        <p>Say hello or suggest improvements:</p>
+        <ul>
+          <li><a href="https://www.linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a></li>
+          <li><a href="https://github.com" target="_blank" rel="noreferrer">GitHub</a></li>
+          <li><a href="mailto:info@example.com">Email</a></li>
+        </ul>
+      </section>
+    </article>
+  </main>
+
+  <footer class="site-footer container" role="contentinfo">
+    <p class="muted">&copy; <span id="year"></span> Titans Compendium</p>
+    <div class="nav" aria-label="Social links">
+      <a href="https://www.linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a>
+      <a href="https://github.com" target="_blank" rel="noreferrer">GitHub</a>
+      <a href="mailto:info@example.com">Email</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+  <script src="scripts/main.js" defer></script>
+</body>
+</html>
