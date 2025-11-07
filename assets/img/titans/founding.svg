@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <rect width="120" height="120" rx="28" fill="currentColor" opacity="0.1"/>
+  <path fill="currentColor" d="M60 22c18 0 34 14 34 34s-16 38-34 38-34-18-34-38 16-34 34-34zm0 12c-12 0-22 9-22 22s8 26 22 26 22-13 22-26-10-22-22-22z" opacity="0.85"/>
+  <path fill="currentColor" d="M60 16v12" stroke="currentColor" stroke-width="6" stroke-linecap="round" opacity="0.6"/>
+  <path fill="currentColor" d="M40 102c0-11 9-18 20-18s20 7 20 18H40z" opacity="0.55"/>
+  <path fill="currentColor" d="M60 48c6 0 12 6 12 12s-6 12-12 12-12-6-12-12 6-12 12-12z" opacity="0.9"/>
+</svg>

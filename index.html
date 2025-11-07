@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Titans Compendium</title>
+    <meta name="description" content="Explore the Titans Compendium: profiles, lore-friendly summaries, and inheritor lineages with accessible tooling.">
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <meta property="og:title" content="Titans Compendium">
+    <meta property="og:description" content="Dark-mode Titans Compendium with searchable profiles and inheritor history.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="assets/img/titans/colossal.svg">
+    <meta property="og:url" content="./index.html">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="scripts/main.js" defer></script>
+  </head>
+  <body data-page="home">
+    <a class="skip-link" href="#mainContent">Skip to content</a>
+    <header class="site-header">
+      <div class="container">
+        <div class="brand">
+          <a href="index.html" class="brand__link">Titans Compendium</a>
+        </div>
+        <nav aria-label="Main navigation">
+          <ul class="nav">
+            <li><a href="index.html" aria-current="page">Home</a></li>
+            <li><a href="titans.html">Titans</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </nav>
+        <button id="themeToggle" class="btn btn-ghost" type="button" aria-label="Toggle theme">
+          <span class="btn__label">Toggle Theme</span>
+        </button>
+      </div>
+    </header>
+    <main id="mainContent">
+      <section class="hero container">
+        <div class="hero__content">
+          <p class="eyebrow muted">Curated Codex</p>
+          <h1>The Titans Compendium</h1>
+          <p>Browse lore-aware summaries of the Nine and every inheritor, crafted to balance insight with spoiler-light notes.</p>
+          <div class="hero__actions">
+            <a class="btn btn-primary" href="titans.html">Explore Titans</a>
+            <a class="btn" href="about.html">Learn More</a>
+          </div>
+        </div>
+        <div class="hero__visual" aria-hidden="true">
+          <div class="hero__orb"></div>
+        </div>
+      </section>
+      <section class="container">
+        <header class="section-header">
+          <h2>Featured Titans</h2>
+          <p class="muted">Hand-picked entries updated automatically from the dataset. Works online or offline.</p>
+        </header>
+        <div id="featuredTitans" class="grid cards-grid" role="list">
+          <div class="card card--placeholder">
+            <p class="muted">Loading featured Titans… enable JavaScript for full experience.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="container footer__inner">
+        <p class="muted">Crafted as a fan-made educational resource.</p>
+        <ul class="social">
+          <li><a href="https://www.linkedin.com" target="_blank" rel="noreferrer noopener">LinkedIn</a></li>
+          <li><a href="https://github.com" target="_blank" rel="noreferrer noopener">GitHub</a></li>
+          <li><a href="mailto:info@example.com">Email</a></li>
+        </ul>
+      </div>
+    </footer>
+  </body>
+</html>

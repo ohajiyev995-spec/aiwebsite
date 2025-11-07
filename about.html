@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Titans Compendium · About</title>
+    <meta name="description" content="Background on the Titans Compendium project, accessibility approach, and fan-made disclaimer.">
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <meta property="og:title" content="Titans Compendium · About">
+    <meta property="og:description" content="Learn how the Titans Compendium was crafted, its technology stack, and accessibility promises.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="assets/img/titans/founding.svg">
+    <meta property="og:url" content="./about.html">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="scripts/main.js" defer></script>
+  </head>
+  <body data-page="about">
+    <a class="skip-link" href="#mainContent">Skip to content</a>
+    <header class="site-header">
+      <div class="container">
+        <div class="brand">
+          <a href="index.html" class="brand__link">Titans Compendium</a>
+        </div>
+        <nav aria-label="Main navigation">
+          <ul class="nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="titans.html">Titans</a></li>
+            <li><a href="about.html" aria-current="page">About</a></li>
+          </ul>
+        </nav>
+        <button id="themeToggle" class="btn btn-ghost" type="button" aria-label="Toggle theme">
+          <span class="btn__label">Toggle Theme</span>
+        </button>
+      </div>
+    </header>
+    <main id="mainContent">
+      <section class="container prose">
+        <header class="section-header">
+          <h1>About this project</h1>
+          <p class="muted">A lean, fan-made compendium focused on legitimacy, accessibility, and resilience.</p>
+        </header>
+        <article>
+          <h2>What it is</h2>
+          <p>The Titans Compendium is an educational, spoiler-aware reference for the Nine Titans and every inheritor. It balances lore-friendly summaries with spoiler-light notes so newer fans can explore with confidence.</p>
+        </article>
+        <article>
+          <h2>How it is built</h2>
+          <p>This site is written in vanilla HTML, CSS, and JavaScript. Data lives in a JSON file, and every page degrades gracefully under <code>file://</code> browsing thanks to inline fallbacks that mirror hosted data.</p>
+        </article>
+        <article>
+          <h2>Accessibility commitments</h2>
+          <ul>
+            <li>Keyboard-first navigation with clear focus states and modality controls.</li>
+            <li>Reduced-motion support that prefers gentle transitions for sensitive users.</li>
+            <li>Semantic markup with accessible names, labels, and live regions.</li>
+          </ul>
+        </article>
+        <article>
+          <h2>Disclaimer</h2>
+          <p>Attack on Titan and related names belong to their respective rights holders. All silhouettes were created specifically for this project as abstract art and are intended solely for non-commercial, educational use.</p>
+        </article>
+        <article>
+          <h2>Stay connected</h2>
+          <p>Questions or ideas? Reach out via <a href="mailto:info@example.com">info@example.com</a> or connect on <a href="https://www.linkedin.com" target="_blank" rel="noreferrer noopener">LinkedIn</a> and <a href="https://github.com" target="_blank" rel="noreferrer noopener">GitHub</a>.</p>
+        </article>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="container footer__inner">
+        <p class="muted">Crafted as a fan-made educational resource.</p>
+        <ul class="social">
+          <li><a href="https://www.linkedin.com" target="_blank" rel="noreferrer noopener">LinkedIn</a></li>
+          <li><a href="https://github.com" target="_blank" rel="noreferrer noopener">GitHub</a></li>
+          <li><a href="mailto:info@example.com">Email</a></li>
+        </ul>
+      </div>
+    </footer>
+  </body>
+</html>

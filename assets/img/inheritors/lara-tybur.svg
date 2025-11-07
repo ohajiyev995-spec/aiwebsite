@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none">
+  <rect width="96" height="96" rx="24" fill="currentColor" opacity="0.12"/>
+  <path fill="currentColor" d="M48 18c13 0 24 10 24 22s-11 28-24 28-24-16-24-28 11-22 24-22z" opacity="0.82"/>
+  <path fill="currentColor" d="M36 68h24c6 0 10 5 10 10v4H26v-4c0-5 4-10 10-10z" opacity="0.5"/>
+  <path fill="currentColor" d="M48 30c5 0 9 4 9 9s-4 9-9 9-9-4-9-9 4-9 9-9z" opacity="0.95"/>
+  <path fill="currentColor" d="M32 42l-4-6 6-4 4 6-6 4z" opacity="0.55"/>
+</svg>
