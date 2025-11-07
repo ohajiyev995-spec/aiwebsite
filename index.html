@@ -19,6 +19,7 @@
       <nav class="nav" aria-label="Primary">
         <a href="index.html" aria-current="page">Home</a>
         <a href="inheritors.html">Inheritors</a>
+        <a href="titans.html">Titans</a>
         <a href="about.html">About</a>
         <button id="themeToggle" class="btn" type="button">Theme</button>
       </nav>
@@ -41,7 +42,17 @@
         <p class="muted">A quick look at three pivotal figures in the lineage.</p>
       </div>
       <div id="featured" class="grid three" aria-live="polite">
-        <p class="muted" id="featured-status">Loading featured inheritors…</p>
+        <p class="muted" data-status>Loading featured inheritors…</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="featured-titans-heading">
+      <div class="section-heading">
+        <h2 id="featured-titans-heading">Featured Titans</h2>
+        <p class="muted">Explore the larger compendium starting with these highlights.</p>
+      </div>
+      <div id="featuredTitans" class="grid three" aria-live="polite">
+        <p class="muted" data-status>Loading featured titans…</p>
       </div>
     </section>
   </main>
@@ -58,28 +69,5 @@
   </footer>
 
   <script src="scripts/main.js" defer></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', async () => {
-      const host = document.getElementById('featured');
-      const status = document.getElementById('featured-status');
-      const slugs = ['eren-yeager','grisha-yeager','eren-kruger'];
-      let dataset;
-      try {
-        dataset = await fetchJSON('data/attack_titans.json');
-      } catch (err) {
-        dataset = window.ATTACK_FALLBACK();
-      }
-      const picks = selectFeatured(dataset, slugs);
-      if (status) status.remove();
-      host.innerHTML = picks.map(item => `
-        <article class="card">
-          <img src="${item.image}" alt="${item.name} silhouette" loading="lazy">
-          <h3>${item.name}</h3>
-          <p class="muted">${item.summary}</p>
-          <a class="btn btn-primary" href="inheritors.html#${item.slug}">View</a>
-        </article>
-      `).join('');
-    });
-  </script>
 </body>
 </html>

@@ -404,3 +404,189 @@ Checklist the student can copy:
 - Responsive layout verified at 360/768/1024/1440
 - Dataset file present with matching SVG assets
 - Modal interactions and keyboard navigation confirmed
+
+---
+
+Cursor/Windsurf Mega Prompt — Upgrade to “Titans Compendium” (adds all Titan kinds)
+
+You are an AI code editor. Extend the existing “Attack Titan Lineage” project into a broader “Titans Compendium” while keeping all current files working. Use vanilla HTML/CSS/JS only; no frameworks/build tools. All links must be relative. If a fetch fails (e.g., running under file://), the UI must still render via inline fallbacks.
+
+0) Add/Update Project Structure
+
+Create or replace the following (do not delete existing attack-only files):
+
+index.html                (update: add Titans section)
+inheritors.html           (keep working)
+about.html                (update: mention full compendium)
+titans.html               (NEW — interactive grid of Titans)
+404.html                  (keep working)
+
+css/
+  main.css                (update: minor styles used by titans.html)
+
+scripts/
+  main.js                 (update: add TITANS_FALLBACK + shared helpers)
+  inheritors.js           (keep working)
+  titans.js               (NEW — page logic for titans.html)
+
+data/
+  attack_titans.json      (keep)
+  titans.json             (NEW — Nine Titans + a few notable variants)
+
+assets/
+  favicon.ico             (keep)
+  img/
+    founding.svg attack.svg colossal.svg armored.svg female.svg
+    beast.svg jaw.svg cart.svg warhammer.svg
+    smiling.svg rodreiss.svg pure-small.svg pure-standard.svg pure-tall.svg
+
+
+All SVGs must be original abstract silhouettes using currentColor (no copyrighted images). Keep them readable at small sizes.
+
+1) titans.html — FULL CONTENT (NEW)
+
+Header/nav identical to other pages; “Titans” link has aria-current="page".
+
+Controls row:
+
+Search input (#q) — matches name/type/category/summary/abilities.
+
+Category select (#category): “All / Nine / Variant / Notable Pure/Abnormal”.
+
+Type select (#type): Founding, Attack, Colossal, Armored, Female, Beast, Jaw, Cart, War Hammer, Pure, Abnormal, plus “Variant” types.
+
+Height min/max number inputs (meters).
+
+Spoilers select: none/low/medium (filter by spoilerLevel).
+
+Grid of cards (#titanGrid) rendered from data/titans.json.
+
+Card: image + name + short summary.
+
+Click/Enter: opens an accessible modal with full details (type, category, height, abilities, weaknesses, firstAppearance, affiliations, funFact). ESC/backdrop closes; focus is trapped; last focused returns on close.
+
+Deep link: titans.html#colossal preselects/open modal for that titan.
+
+If fetch('data/titans.json') fails, use window.TITANS_FALLBACK().
+
+2) data/titans.json — FULL CONTENT (NEW)
+
+Create spoiler-light entries for the Nine + a few notables:
+
+[
+  { "slug":"founding","name":"Founding Titan","heightMeters":13,"type":"Founding","category":"Nine","shifters":["(varies; royal line context)"],"abilities":["Coordinate","Influence Subjects of Ymir (conditional)"],"weaknesses":["Royal-blood conditions"],"firstAppearance":"S1 (lore), later revealed","affiliations":["Eldia (historical)"],"image":"assets/img/founding.svg","summary":"Origin titan tied to the Coordinate; central to the lore.","funFact":"Certain conditions can amplify its reach.","spoilerLevel":"low" },
+  { "slug":"attack","name":"Attack Titan","heightMeters":15,"type":"Attack","category":"Nine","shifters":["(various across eras)"],"abilities":["Agile combat","Future memory fragments (lore)"],"weaknesses":["Standard stamina limits"],"firstAppearance":"S1","affiliations":["Various"],"image":"assets/img/attack.svg","summary":"Balanced fighter known for relentless drive.","funFact":"Associated with moving forward.","spoilerLevel":"low" },
+  { "slug":"colossal","name":"Colossal Titan","heightMeters":60,"type":"Colossal","category":"Nine","shifters":["Bertholdt","Armin"],"abilities":["Steam emission","Explosive transformation"],"weaknesses":["Very slow","High stamina drain"],"firstAppearance":"S1E1","affiliations":["Various"],"image":"assets/img/colossal.svg","summary":"Skyscraper-class titan with catastrophic steam output.","funFact":"Transformation can be explosive.","spoilerLevel":"low" },
+  { "slug":"armored","name":"Armored Titan","heightMeters":15,"type":"Armored","category":"Nine","shifters":["Reiner"],"abilities":["Hardened plates","Powerful charges"],"weaknesses":["Exposed joints","Weight reduces speed"],"firstAppearance":"S1","affiliations":["Various"],"image":"assets/img/armored.svg","summary":"Heavily plated titan for assault/defense.","funFact":"Armor can be selectively shed.","spoilerLevel":"low" },
+  { "slug":"female","name":"Female Titan","heightMeters":14,"type":"Female","category":"Nine","shifters":["Annie"],"abilities":["Selective hardening","Versatile tactics"],"weaknesses":["Anti-hardening strategies"],"firstAppearance":"S1","affiliations":["Various"],"image":"assets/img/female.svg","summary":"Adaptive fighter emphasizing technique.","funFact":"High combat intelligence.","spoilerLevel":"low" },
+  { "slug":"beast","name":"Beast Titan","heightMeters":17,"type":"Beast","category":"Nine","shifters":["Zeke"],"abilities":["Devastating throws","Command presence (situational)"],"weaknesses":["CQC vulnerability"],"firstAppearance":"S2","affiliations":["Various"],"image":"assets/img/beast.svg","summary":"Ranged dominance and battlefield control.","funFact":"Physiology varies by inheritor.","spoilerLevel":"low" },
+  { "slug":"jaw","name":"Jaw Titan","heightMeters":5,"type":"Jaw","category":"Nine","shifters":["Ymir","Porco","Falco"],"abilities":["Extreme bite force","High agility"],"weaknesses":["Low endurance"],"firstAppearance":"S2","affiliations":["Various"],"image":"assets/img/jaw.svg","summary":"Smallest but ferocious—fast and deadly.","funFact":"Can damage hardened structures.","spoilerLevel":"low" },
+  { "slug":"cart","name":"Cart Titan","heightMeters":4,"type":"Cart","category":"Nine","shifters":["Pieck"],"abilities":["Endurance","Quadrupedal mobility","Payload support"],"weaknesses":["Low offense without equipment"],"firstAppearance":"S3","affiliations":["Various"],"image":"assets/img/cart.svg","summary":"Long-duration support titan for transport/gear.","funFact":"Can stay transformed very long.","spoilerLevel":"low" },
+  { "slug":"war-hammer","name":"War Hammer Titan","heightMeters":15,"type":"War Hammer","category":"Nine","shifters":["(Tybur family context)"],"abilities":["Externalized hardening weapons","Remote control (lore)"],"weaknesses":["Control link exposure"],"firstAppearance":"S4","affiliations":["Tybur family"],"image":"assets/img/warhammer.svg","summary":"Forms weapons/structures with hardening.","funFact":"Unique remote control method.","spoilerLevel":"low" },
+
+  { "slug":"smiling","name":"Smiling Titan","heightMeters":15,"type":"Pure","category":"Notable Pure/Abnormal","shifters":["—"],"abilities":["Abnormal behavior (narrative impact)"],"weaknesses":["Standard pure weaknesses"],"firstAppearance":"S1","affiliations":["N/A"],"image":"assets/img/smiling.svg","summary":"Iconic grinning pure titan from early events.","funFact":"Recognized by the fixed smile.","spoilerLevel":"low" },
+  { "slug":"rod-reiss","name":"Rod Reiss Titan","heightMeters":120,"type":"Abnormal","category":"Notable Pure/Abnormal","shifters":["— (unique case)"],"abilities":["Colossal crawl","Extreme heat/steam"],"weaknesses":["Low mobility","Structural instability"],"firstAppearance":"S3","affiliations":["Reiss family"],"image":"assets/img/rodreiss.svg","summary":"Massive distorted form that crawls forward.","funFact":"Scorches the ground while moving.","spoilerLevel":"low" },
+  { "slug":"pure-small","name":"Pure Titan (Small)","heightMeters":3,"type":"Pure","category":"Notable Pure/Abnormal","shifters":["—"],"abilities":["Basic aggression"],"weaknesses":["Easily dispatched when targeted"],"firstAppearance":"S1","affiliations":["N/A"],"image":"assets/img/pure-small.svg","summary":"Common small pure titan near the walls.","funFact":"Numbers can overwhelm.","spoilerLevel":"none" },
+  { "slug":"pure-standard","name":"Pure Titan (Standard)","heightMeters":7,"type":"Pure","category":"Notable Pure/Abnormal","shifters":["—"],"abilities":["Basic aggression"],"weaknesses":["Nape vulnerability"],"firstAppearance":"S1","affiliations":["N/A"],"image":"assets/img/pure-standard.svg","summary":"Most common height among pure titans.","funFact":"Behavior is direct and simple.","spoilerLevel":"none" },
+  { "slug":"pure-tall","name":"Pure Titan (Tall)","heightMeters":12,"type":"Pure","category":"Notable Pure/Abnormal","shifters":["—"],"abilities":["Extended reach"],"weaknesses":["Slower reactions"],"firstAppearance":"S1","affiliations":["N/A"],"image":"assets/img/pure-tall.svg","summary":"Towering pure titan threatening rooftops.","funFact":"Requires multi-angle tactics.","spoilerLevel":"none" }
+]
+
+3) scripts/titans.js — FULL CONTENT (NEW)
+
+Implement:
+
+Load data/titans.json; on error use window.TITANS_FALLBACK().
+
+Build cards in #titanGrid.
+
+Wire search/filters (debounced ~120ms).
+
+Click/Enter opens modal with details; ESC/backdrop closes; trap focus; restore on close.
+
+Deep-link: if location.hash matches a slug, pre-open its modal on load.
+
+Prevent broken images: if an image fails to load, swap to a generated inline SVG data URL.
+
+4) scripts/main.js — UPDATE
+
+Keep previous functionality and add:
+
+async function fetchJSON(url){...} (already present; keep).
+
+function TITANS_FALLBACK(){ return [a minimal subset: colossal/armored/beast/attack/founding with same schema as titans.json] }
+
+Expose as window.TITANS_FALLBACK = TITANS_FALLBACK.
+
+On index.html: add a second “Featured Titans” row (#featuredTitans).
+
+Try to load titans.json; else fallback; show 3 cards (e.g., Colossal, Armored, Beast) linking to titans.html#slug.
+
+5) index.html — UPDATE
+
+Keep the existing hero/featured Inheritors section.
+
+Add a “Featured Titans” section with a grid #featuredTitans populated by main.js from titans.json (or fallback).
+
+Ensure nav includes Home / Inheritors / Titans / About / Theme (and no broken links).
+
+6) about.html — UPDATE
+
+Mention that the site now includes:
+
+Inheritors (Attack Titan lineage)
+
+Titans (the Nine + notable pure/abnormal)
+
+Keep the fan site disclaimer and accessibility notes.
+
+7) css/main.css — UPDATE
+
+Reuse the existing design language.
+
+Add/ensure styles used by titans.html:
+
+.controls grid for filters (wrap on small screens)
+
+.grid responsive card grid
+
+.card hover lift (respect prefers-reduced-motion)
+
+.modal, .modal__panel, .modal__close (same styling as inheritors modal)
+
+.sr-only utility (if not already present)
+
+8) SVGs in assets/img/*.svg — FULL CONTENT
+
+Create simple, original silhouettes. Use this template and vary the inner <path> per file to make them distinct:
+
+Make unique inner paths for: founding.svg, attack.svg, colossal.svg, armored.svg, female.svg, beast.svg, jaw.svg, cart.svg, warhammer.svg, smiling.svg, rodreiss.svg, pure-small.svg, pure-standard.svg, pure-tall.svg.
+
+9) index.html (script hook) — UPDATE
+
+At the bottom, ensure a small inline script (or logic in main.js) populates #featuredTitans just like #featured (inheritors). Cards should link to titans.html#<slug>.
+
+10) Deep-link & Fallback Verification
+
+inheritors.html#eren-yeager opens Eren in detail/modal.
+
+titans.html#colossal opens the Colossal Titan in modal.
+
+If fetch() fails, both pages render using their fallbacks with no console errors.
+
+11) Optional (nice-to-have)
+
+Add a “Compare” checkbox on each titan card; if 2 are selected, show a small floating drawer comparing height/type/category (no external libs). Keep code small/clean.
+
+12) Finish with a short summary
+
+After generating/updating all files, end your response with:
+
+What was added/changed
+
+How to add more Titans (edit data/titans.json + add SVGs)
+
+How the hash deep-links work
+
+Quick test checklist
+
+Generate all code now. Ensure no broken links.

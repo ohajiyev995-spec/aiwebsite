@@ -129,17 +129,42 @@ a:hover, a:focus-visible { text-decoration:underline; }
   padding:1.1rem;
   box-shadow:var(--shadow);
   transition:transform .25s ease, box-shadow .25s ease;
+  text-align:left;
 }
 .card:hover { transform:translateY(-4px); }
 .card h3 { margin:.75rem 0 .35rem; font-family:"DM Serif Display", serif; }
+
+.titan-card {
+  display:flex;
+  flex-direction:column;
+  gap:.6rem;
+  align-items:flex-start;
+}
+.titan-card img {
+  width:100%;
+  max-height:160px;
+  object-fit:contain;
+  border-radius:12px;
+  background:color-mix(in srgb, var(--muted) 10%, transparent);
+  padding:.75rem;
+}
 
 .muted { color:var(--muted); }
 
 .controls {
   display:grid;
   gap:.75rem;
-  grid-template-columns: minmax(0, 340px);
+  grid-template-columns:1fr;
   margin-bottom:1.75rem;
+}
+
+.controls--filters {
+  grid-template-columns:repeat(auto-fit, minmax(160px, 1fr));
+  align-items:end;
+}
+
+.controls--filters #q {
+  grid-column:1 / -1;
 }
 
 .inheritors-layout {
