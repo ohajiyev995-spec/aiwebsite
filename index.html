@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Titans Compendium</title>
+  <meta name="description" content="Explore every Nine Titan and their inheritors with spoiler-light profiles, filters, and accessibility-first design.">
+  <meta property="og:title" content="Titans Compendium">
+  <meta property="og:description" content="Browse the Nine Titans, review their inheritors, and dive into spoiler-light lore.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=DM+Serif+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="brand" href="index.html">Titans Compendium</a>
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html" aria-current="page">Home</a>
+        <a href="titans.html">Titans</a>
+        <a href="about.html">About</a>
+        <button id="themeToggle" class="btn" type="button">Theme</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1 class="display">A Spoiler-Light Atlas of the Titans</h1>
+        <p class="tagline">Trace the Nine Titans and every inheritor through interactive profiles, accessible filters, and original silhouettes.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="titans.html">Browse Titans</a>
+          <a class="btn" href="about.html">Learn More</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="container" aria-labelledby="featuredTitansHeading">
+      <header class="section-heading">
+        <h2 id="featuredTitansHeading">Featured Titans</h2>
+        <p class="muted">Jump in with three iconic forms from the compendium.</p>
+      </header>
+      <div id="featuredTitans" class="grid" aria-live="polite">
+        <p class="muted" data-status>Loading featured titans…</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p class="muted">Fan-built reference. <em>Attack on Titan</em> IP belongs to its rights holders.</p>
+      <div class="nav nav--inline">
+        <a href="https://www.linkedin.com/in/your-handle" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/your-handle" target="_blank" rel="noopener">GitHub</a>
+        <a href="mailto:you@example.com">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="scripts/main.js" defer></script>
+</body>
+</html>

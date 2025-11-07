@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Attack Titan Lineage — Inheritors</title>
+  <meta name="description" content="Interactively browse inheritors of the Attack Titan with spoiler-light profiles, summaries, and notable events." />
+  <meta property="og:title" content="Attack Titan Inheritors" />
+  <meta property="og:description" content="Browse spoiler-light profiles for every known inheritor of the Attack Titan lineage." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="assets/favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=DM+Serif+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="brand" href="index.html">Attack Titan Lineage</a>
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="inheritors.html" aria-current="page">Inheritors</a>
+        <a href="titans.html">Titans</a>
+        <a href="about.html">About</a>
+        <button id="themeToggle" class="btn" type="button">Theme</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="section-heading">
+      <h1>Attack Titan Inheritors</h1>
+      <p class="muted">Select a name to view spoiler-light details, timelines, and notable events across the lineage.</p>
+    </header>
+
+    <section class="controls" aria-label="Filters">
+      <label class="sr-only" for="q">Search inheritors</label>
+      <input id="q" class="input" type="search" placeholder="Search name, era, ability…" autocomplete="off">
+    </section>
+
+    <div class="inheritors-layout">
+      <aside class="inheritors-list" aria-label="Inheritor list">
+        <p class="sr-only" id="list-help">Use arrow keys to navigate inheritors. Press Enter to view details.</p>
+        <div id="inheritorList" class="list" role="listbox" aria-describedby="list-help"></div>
+      </aside>
+
+      <article id="detail" class="detail" aria-live="polite">
+        <div class="detail__placeholder">
+          <h2>Select an inheritor</h2>
+          <p class="muted">Choose a name from the list to load their profile, summary, and notable events.</p>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p class="muted">Fan project. <em>Attack on Titan</em> IP belongs to its respective owners.</p>
+      <div class="nav nav--inline">
+        <a href="index.html">Home</a>
+        <span aria-hidden="true">•</span>
+        <a href="titans.html">Titans</a>
+        <span aria-hidden="true">•</span>
+        <a href="about.html">About</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+    <div class="modal__panel">
+      <button class="modal__close" type="button" aria-label="Close">&times;</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <script src="scripts/main.js" defer></script>
+  <script src="scripts/inheritors.js" defer></script>
+</body>
+</html>
