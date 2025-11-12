@@ -1,0 +1,173 @@
+export const HOUSES = [
+  {
+    id: "gryffindor",
+    name: "Gryffindor",
+    founder: "Godric Gryffindor",
+    mascot: "Lion",
+    colors: ["Scarlet", "Gold"],
+    traits: ["Bravery", "Chivalry", "Courage"],
+    relic: "Sword of Gryffindor",
+    ghost: "Nearly Headless Nick",
+    img: "assets/img/gryffindor.webp",
+    summary: "Gryffindor champions daring, nerve, and boldness. Its students rush toward challenges with fierce loyalty, guided by the legacy of Godric Gryffindor."
+  },
+  {
+    id: "slytherin",
+    name: "Slytherin",
+    founder: "Salazar Slytherin",
+    mascot: "Serpent",
+    colors: ["Emerald Green", "Silver"],
+    traits: ["Ambition", "Resourcefulness", "Determination"],
+    relic: "Salazar Slytherin's Locket",
+    ghost: "The Bloody Baron",
+    img: "assets/img/slytherin.webp",
+    summary: "Slytherin values ambition, cunning, and heritage. Its legacy is complex, but its members constantly redefine what it means to lead with resolve."
+  },
+  {
+    id: "ravenclaw",
+    name: "Ravenclaw",
+    founder: "Rowena Ravenclaw",
+    mascot: "Eagle",
+    colors: ["Blue", "Bronze"],
+    traits: ["Intellect", "Creativity", "Wit"],
+    relic: "Rowena Ravenclaw's Diadem",
+    ghost: "The Grey Lady",
+    img: "assets/img/ravenclaw.webp",
+    summary: "Ravenclaw celebrates imagination and intellect. Scholars and innovators alike thrive under its banner, guided by Rowena Ravenclaw's pursuit of wisdom."
+  },
+  {
+    id: "hufflepuff",
+    name: "Hufflepuff",
+    founder: "Helga Hufflepuff",
+    mascot: "Badger",
+    colors: ["Yellow", "Black"],
+    traits: ["Loyalty", "Patience", "Hard Work"],
+    relic: "Helga Hufflepuff's Cup",
+    ghost: "The Fat Friar",
+    img: "assets/img/hufflepuff.webp",
+    summary: "Hufflepuff welcomes all who work hard and care deeply. Its camaraderie and compassion create a steadfast community that stands firm in any storm."
+  }
+];
+
+export const WIZARDS = [
+  {
+    id: "harry-potter",
+    name: "Harry Potter",
+    house: "Gryffindor",
+    years: [1991, 1992, 1993, 1994, 1995, 1996, 1997],
+    aliases: ["The Boy Who Lived", "The Chosen One"],
+    summary:
+      "Harry Potter is the unlikely Gryffindor hero whose childhood under the Dursleys transformed into a destiny entwined with the prophecy about the Dark Lord. Across his years at Hogwarts he confronts fear, loyalty, and sacrifice, ultimately leading Dumbledore's Army and facing Voldemort in a final duel while honoring the friends who stood with him.",
+    notableEvents: ["Defeated Voldemort", "Founded Dumbledore's Army"],
+    img: "assets/img/harry-potter.webp",
+    spoilerLevel: "high"
+  },
+  {
+    id: "hermione-granger",
+    name: "Hermione Granger",
+    house: "Gryffindor",
+    years: [1991, 1992, 1993, 1994, 1995, 1996, 1997],
+    aliases: ["Brightest Witch of Her Age"],
+    summary:
+      "Hermione Granger is the brilliant strategist who marries intellect with compassion. From brewing Polyjuice in second year to crafting intricate plans for Horcrux hunts, she continually pushes her friends to think critically and act ethically. Her advocacy for house-elves and meticulous preparation often turns the tide in battles where knowledge is the sharpest wand.",
+    notableEvents: ["Co-founded Dumbledore's Army", "Destroyed a Horcrux"],
+    img: "assets/img/hermione-granger.webp",
+    spoilerLevel: "high"
+  },
+  {
+    id: "ron-weasley",
+    name: "Ron Weasley",
+    house: "Gryffindor",
+    years: [1991, 1992, 1993, 1994, 1995, 1996, 1997],
+    aliases: ["Keeper of the Weasleys", "Chess Champion"],
+    summary:
+      "Ron Weasley grows from the overshadowed youngest brother into a courageous leader whose humor keeps the trio grounded. His decisive chess match in first year foreshadows later bravery, including guarding the Ministry infiltration and risking everything to return to the fight. Ron's loyalty is a compass that always points back to the people he loves.",
+    notableEvents: ["Won the life-size Wizard's Chess match", "Helped destroy Horcruxes"],
+    img: "assets/img/ron-weasley.webp",
+    spoilerLevel: "high"
+  },
+  {
+    id: "albus-dumbledore",
+    name: "Albus Dumbledore",
+    house: "Gryffindor",
+    years: [1892, 1893, 1894, 1895, 1896],
+    aliases: ["Headmaster of Hogwarts", "Chief Warlock"],
+    summary:
+      "Albus Dumbledore is the enigmatic architect behind many of the wizarding world's pivotal moments. A prodigious student turned headmaster, he balances brilliance with deep regrets from his youth. By mentoring the Order of the Phoenix and guiding Harry through layered plans, he demonstrates how hope, even when imperfect, can galvanize entire movements against darkness.",
+    notableEvents: ["Defeated Grindelwald", "Led the Order of the Phoenix"],
+    img: "assets/img/albus-dumbledore.webp",
+    spoilerLevel: "high"
+  },
+  {
+    id: "severus-snape",
+    name: "Severus Snape",
+    house: "Slytherin",
+    years: [1971, 1972, 1973, 1974, 1975, 1976, 1977],
+    aliases: ["Half-Blood Prince"],
+    summary:
+      "Severus Snape is a master of occlumency and potions whose loyalty is one of the saga's most debated mysteries. His journey from bullied student to double agent reveals layers of remorse, bravery, and complicated love. The choices he hides in plain sight ultimately safeguard Hogwarts and redefine what sacrifice can mean for redemption.",
+    notableEvents: ["Protected Harry as a double agent", "Mastered occlumency"],
+    img: "assets/img/severus-snape.webp",
+    spoilerLevel: "high"
+  },
+  {
+    id: "minerva-mcgonagall",
+    name: "Minerva McGonagall",
+    house: "Gryffindor",
+    years: [1947, 1948, 1949, 1950, 1951, 1952],
+    aliases: ["Deputy Headmistress", "Animagus"],
+    summary:
+      "Minerva McGonagall is the stern yet deeply caring Transfiguration professor who epitomizes Gryffindor resolve. An accomplished duelist and Animagus, she leads by example in both classrooms and battlefields. Her unwavering support of her students, especially during the Battle of Hogwarts, proves that discipline and empathy can coexist in powerful harmony.",
+    notableEvents: ["Led Hogwarts' defense in 1998", "Served as Head of Gryffindor"],
+    img: "assets/img/minerva-mcgonagall.webp",
+    spoilerLevel: "low"
+  },
+  {
+    id: "rubeus-hagrid",
+    name: "Rubeus Hagrid",
+    house: "Gryffindor",
+    years: [1940, 1941, 1942],
+    aliases: ["Keeper of Keys and Grounds"],
+    summary:
+      "Rubeus Hagrid is the gentle half-giant whose love for magical creatures introduces students to wonders and dangers alike. Expelled yet fiercely loyal to Hogwarts, he ferries Harry into the wizarding world and repeatedly risks his safety to protect friends and misunderstood beasts. Hagrid shows that kindness and strength can be equally towering.",
+    notableEvents: ["Rescued Harry from the Dursleys", "Befriended giants during the Second War"],
+    img: "assets/img/rubeus-hagrid.webp",
+    spoilerLevel: "low"
+  },
+  {
+    id: "draco-malfoy",
+    name: "Draco Malfoy",
+    house: "Slytherin",
+    years: [1991, 1992, 1993, 1994, 1995, 1996, 1997],
+    aliases: ["Seeker of Slytherin"],
+    summary:
+      "Draco Malfoy enters Hogwarts with pride in pure-blood traditions, yet war forces him to confront the cost of inherited ideology. His sixth year assignments expose vulnerabilities beneath his bravado, and the crucible of the Room of Requirement shows him grappling with fear and conscience. Draco's arc underscores the difficulty of choosing courage over expectation.",
+    notableEvents: ["Became a reluctant Death Eater", "Disarmed Dumbledore"],
+    img: "assets/img/draco-malfoy.webp",
+    spoilerLevel: "high"
+  },
+  {
+    id: "luna-lovegood",
+    name: "Luna Lovegood",
+    house: "Ravenclaw",
+    years: [1992, 1993, 1994, 1995, 1996, 1997],
+    aliases: ["Loony Lovegood"],
+    summary:
+      "Luna Lovegood is a Ravenclaw visionary whose open-minded curiosity offers solace amid chaos. From battling Death Eaters at the Department of Mysteries to broadcasting messages of hope on Potterwatch, she meets prejudice with serenity. Luna's steadfast belief in the extraordinary reminds the wizarding world that imagination is a vital form of resistance.",
+    notableEvents: ["Fought at the Department of Mysteries", "Helped rescue Harry from Malfoy Manor"],
+    img: "assets/img/luna-lovegood.webp",
+    spoilerLevel: "high"
+  },
+  {
+    id: "neville-longbottom",
+    name: "Neville Longbottom",
+    house: "Gryffindor",
+    years: [1991, 1992, 1993, 1994, 1995, 1996, 1997],
+    aliases: ["Herbology Expert"],
+    summary:
+      "Neville Longbottom transforms from a timid student into one of Hogwarts' boldest defenders. Each year strengthens his resolve, culminating in leadership of the reformed Dumbledore's Army and the decisive strike against Voldemort's final Horcrux. Neville's perseverance proves that courage can bloom quietly before roaring to life when it is needed most.",
+    notableEvents: ["Destroyed Nagini", "Led Dumbledore's Army in Harry's absence"],
+    img: "assets/img/neville-longbottom.webp",
+    spoilerLevel: "high"
+  }
+];

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Meet the witches and wizards who defined Hogwarts history with spoiler-aware profiles.">
+    <title>Wizards | Hogwarts Houses & Wizards</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.min.css">
+  </head>
+  <body data-page="characters">
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <div class="page-wrapper">
+      <header class="site-header" role="banner">
+        <div class="container site-header-inner">
+          <a class="brand" href="index.html">
+            <svg role="img" aria-hidden="true" viewBox="0 0 64 64">
+              <path fill="#8ab4f8" d="M32 6l10 12h10l-6 10 6 10h-10l-10 12-10-12H12l6-10-6-10h10z" />
+            </svg>
+            Hogwarts Houses & Wizards
+          </a>
+          <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation">
+            <span class="sr-only">Toggle navigation</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z" />
+            </svg>
+          </button>
+          <nav id="primary-navigation" aria-label="Primary navigation">
+            <ul class="nav-list">
+              <li><a class="nav-link" href="index.html">Home</a></li>
+              <li><a class="nav-link" href="houses.html">Houses</a></li>
+              <li><a class="nav-link" href="characters.html">Wizards</a></li>
+              <li><a class="nav-link" href="timeline.html">Timeline</a></li>
+              <li><a class="nav-link" href="about.html">About</a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+
+      <main id="main">
+        <section class="hero">
+          <div class="container hero-inner">
+            <div class="hero-copy fade-in-up">
+              <h1 class="hero-title">Wizarding Profiles</h1>
+              <p class="hero-subtitle">
+                Browse Hogwarts legends across every house with spoiler safeguards you control.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="container">
+            <div class="spoiler-banner" data-spoiler-banner>
+              <p>This page may contain major plot spoilers.</p>
+              <button type="button" data-action="dismiss-banner">Got it</button>
+            </div>
+            <div class="section-heading fade-in-up">
+              <h2>Filter the Wizards</h2>
+              <p>Search by name, filter by house or year, and reveal biographies on your terms.</p>
+            </div>
+            <form class="filters" aria-label="Wizard filters">
+              <label for="wizard-search">Name or keyword
+                <input class="input" type="search" id="wizard-search" name="wizard-search" placeholder="Search wizards">
+              </label>
+              <label for="wizard-house">House
+                <select class="input" id="wizard-house" name="wizard-house">
+                  <option value="all">All houses</option>
+                  <option value="Gryffindor">Gryffindor</option>
+                  <option value="Slytherin">Slytherin</option>
+                  <option value="Ravenclaw">Ravenclaw</option>
+                  <option value="Hufflepuff">Hufflepuff</option>
+                </select>
+              </label>
+              <label for="wizard-year">School year
+                <select class="input" id="wizard-year" name="wizard-year">
+                  <option value="all">All years</option>
+                  <option value="1892">1892</option>
+                  <option value="1893">1893</option>
+                  <option value="1894">1894</option>
+                  <option value="1895">1895</option>
+                  <option value="1896">1896</option>
+                  <option value="1940">1940</option>
+                  <option value="1941">1941</option>
+                  <option value="1942">1942</option>
+                  <option value="1947">1947</option>
+                  <option value="1948">1948</option>
+                  <option value="1949">1949</option>
+                  <option value="1950">1950</option>
+                  <option value="1951">1951</option>
+                  <option value="1952">1952</option>
+                  <option value="1971">1971</option>
+                  <option value="1972">1972</option>
+                  <option value="1973">1973</option>
+                  <option value="1974">1974</option>
+                  <option value="1975">1975</option>
+                  <option value="1976">1976</option>
+                  <option value="1977">1977</option>
+                  <option value="1991">1991</option>
+                  <option value="1992">1992</option>
+                  <option value="1993">1993</option>
+                  <option value="1994">1994</option>
+                  <option value="1995">1995</option>
+                  <option value="1996">1996</option>
+                  <option value="1997">1997</option>
+                </select>
+              </label>
+              <label class="inclusive-toggle">
+                <input type="checkbox" id="spoiler-toggle" name="spoiler-toggle">
+                <span>Show spoilers</span>
+              </label>
+            </form>
+            <p class="search-results-count" id="wizard-results-count">10 wizards found</p>
+            <div class="card-grid" data-wizards-grid></div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="container">
+          <div class="footer-top">
+            <a class="footer-brand" href="index.html">
+              <svg role="img" aria-hidden="true" viewBox="0 0 64 64">
+                <path fill="#8ab4f8" d="M32 6l10 12h10l-6 10 6 10h-10l-10 12-10-12H12l6-10-6-10h10z" />
+              </svg>
+              Hogwarts Houses & Wizards
+            </a>
+            <div class="footer-social" role="list">
+              <a href="https://www.linkedin.com/in/your-username/" target="_blank" rel="noopener" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                  <path fill="currentColor" d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM0 8h5v16H0zM8 8h4.8v2.2h.1c.67-1.2 2.3-2.5 4.7-2.5 5 0 5.9 3.3 5.9 7.6V24H18v-7.2c0-1.7 0-3.9-2.4-3.9-2.4 0-2.8 1.8-2.8 3.8V24H8z" />
+                </svg>
+              </a>
+              <a href="https://github.com/your-username" target="_blank" rel="noopener" aria-label="GitHub">
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                  <path fill="currentColor" d="M12 2C6.48 2 2 6.58 2 12.26c0 4.51 2.87 8.33 6.84 9.68.5.1.68-.22.68-.48 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.63.07-.63 1 .07 1.52 1.05 1.52 1.05.89 1.55 2.34 1.1 2.91.84.09-.66.35-1.1.63-1.35-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.74-.1-.26-.45-1.3.1-2.71 0 0 .84-.27 2.75 1.04a9.28 9.28 0 0 1 5 0c1.91-1.31 2.75-1.04 2.75-1.04.55 1.41.2 2.45.1 2.71.64.71 1.03 1.62 1.03 2.74 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.89 0 1.37-.01 2.48-.01 2.81 0 .26.18.58.69.48A10.04 10.04 0 0 0 22 12.26C22 6.58 17.52 2 12 2z" />
+                </svg>
+              </a>
+              <a href="https://www.instagram.com/your-username/" target="_blank" rel="noopener" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                  <path fill="currentColor" d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h10zm-5 3.5A5.5 5.5 0 1 0 17.5 13 5.51 5.51 0 0 0 12 7.5zm0 2A3.5 3.5 0 1 1 8.5 13 3.5 3.5 0 0 1 12 9.5zm5.75-2.25a1.25 1.25 0 1 1-1.25-1.25 1.25 1.25 0 0 1 1.25 1.25z" />
+                </svg>
+              </a>
+            </div>
+          </div>
+          <div class="footer-bottom">
+            <p>Fan site for educational purposes. All rights belong to J.K. Rowling and respective owners.</p>
+            <p>&copy; <span id="current-year">2025</span> Hogwarts Houses & Wizards.</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script type="module" src="assets/js/main.min.js"></script>
+  </body>
+</html>
